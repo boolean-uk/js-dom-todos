@@ -7,6 +7,7 @@ function insertIntoTodoListView(todoItem) {
     todoCompleted.setAttribute('type', 'checkbox')
     todoCompleted.setAttribute('name', 'checkbox_' + todoItem.id)
     todoCompleted.setAttribute('id', 'checkbox_' + todoItem.id)
+    todoCompleted.checked = todoItem.completed
 
     const todoCompletedLabel = document.createElement('label')
     todoCompletedLabel.setAttribute('for', 'checkbox_' + todoItem.id)
