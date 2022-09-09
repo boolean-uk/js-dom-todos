@@ -11,3 +11,14 @@ body {
   text-decoration: line-through;
   color:grey;
 }
+
+#todo-list {
+  padding: 0;
+}
+
+#todo-list li {
+  list-style: none;
+}
+#todo-list li label {
+  padding-left: 1rem;
+}
