@@ -32,12 +32,12 @@
     },
     {
       "title": "asdfasd",
-      "completed": false,
+      "completed": true,
       "id": 7
     },
     {
       "title": "asdf",
-      "completed": false,
+      "completed": true,
       "id": 8
     },
     {

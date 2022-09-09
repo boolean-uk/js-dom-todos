@@ -11,12 +11,32 @@ function insertIntoTodoListView(todoItem) {
 
     const todoCompletedLabel = document.createElement('label')
     todoCompletedLabel.setAttribute('for', 'checkbox_' + todoItem.id)
+    if(todoItem.completed) {
+        todoCompletedLabel.setAttribute('class', 'completed')
+    }
     todoCompletedLabel.innerText = todoItem.title
 
     listElement.appendChild(todoCompleted)
     listElement.appendChild(todoCompletedLabel)
 
     todoList.appendChild(listElement)
+
+    todoCompleted.addEventListener('change', (event) => {
+        todoItem.completed = todoCompleted.checked
+        if(todoCompleted.checked) {
+            todoCompletedLabel.setAttribute('class', 'completed')
+        } else {
+            todoCompletedLabel.classList.remove('completed')
+        }
+        fetch('http://localhost:3000/todos/' + todoItem.id, {
+            method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: todoItem.title, completed: todoItem.completed,  })
+        })
+    })
+
 }
 
 function readTodoListData() {
