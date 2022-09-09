@@ -6,16 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="todo.js" defer></script>
 </head>
 <body>
   <div>
     <h2>Add Todo</h2>
-    <form>
+    <form id="todoForm">
         <label>
           Title
-          <input name="title" />
+          <input type="text" name="title" id="todoText"/>
         </label>
-        <input type="submit" value="Add"></input>
+        <input type="submit" value="Add" id="submitInput"></input>
     </form>
   </div>
   <div>
