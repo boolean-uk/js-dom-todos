@@ -11,7 +11,7 @@ function insertIntoTodoListView(todoItem) {
 
     const todoCompletedLabel = document.createElement('label')
     todoCompletedLabel.setAttribute('for', 'checkbox_' + todoItem.id)
-    if(todoItem.completed) {
+    if (todoItem.completed) {
         todoCompletedLabel.setAttribute('class', 'completed')
     }
     todoCompletedLabel.innerText = todoItem.title
@@ -23,17 +23,17 @@ function insertIntoTodoListView(todoItem) {
 
     todoCompleted.addEventListener('change', (event) => {
         todoItem.completed = todoCompleted.checked
-        if(todoCompleted.checked) {
+        if (todoCompleted.checked) {
             todoCompletedLabel.setAttribute('class', 'completed')
         } else {
             todoCompletedLabel.classList.remove('completed')
         }
         fetch('http://localhost:3000/todos/' + todoItem.id, {
             method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ title: todoItem.title, completed: todoItem.completed,  })
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title: todoItem.title, completed: todoItem.completed, })
         })
     })
 
@@ -48,16 +48,15 @@ function readTodoListData() {
         .then(function (todos) {
             todos.forEach(function (todoItem) { insertIntoTodoListView(todoItem); });
         })
-
 }
 
 function setup() {
     readTodoListData()
 
     const todoForm = document.querySelector('#todoForm')
+
     todoForm.addEventListener('submit', function (event) {
         event.preventDefault()
-
         const valueInputField = todoForm.querySelector('#todoText').value
         if (valueInputField.length > 0) {
             fetch('http://localhost:3000/todos', {
@@ -75,7 +74,6 @@ function setup() {
                 })
         }
     })
-
 }
 
 setup()
