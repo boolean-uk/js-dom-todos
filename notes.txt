@@ -1,0 +1,11 @@
+1. get the existing to do item from the server.
+2. display this todo item in todo list.
+    a. iterate through each item we got from server.
+    b. we create <li> for each todo items.
+    c. we want to insert to <ul>.
+3. when user types new item into input field we want to creat new
+   item and insert it to todo list.
+    a. when user submits the form we want to create new todo object
+     and send POST request to the server.
+    b. get all todo list from the server again.
+    c. we want to display them in to todo list.
