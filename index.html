@@ -10,12 +10,12 @@
 <body>
   <div>
     <h2>Add Todo</h2>
-    <form>
+    <form id = "todo-form">
         <label>
           Title
-          <input name="title" />
+          <input name="title" type="text" id="toDoTxt"/>
         </label>
-        <input type="submit" value="Add"></input>
+        <input type="submit" value="Add" id="submitToDoTxt"></input>
     </form>
   </div>
   <div>
@@ -24,5 +24,6 @@
 
     </ul>
   </div>
+  <script src="todos.js"></script>
 </body>
 </html>
