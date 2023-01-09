@@ -35,8 +35,10 @@ newTaskForm.addEventListener("submit", (event) => {
                 return res.json()
             })
             .then((task) => {
-                console.log(task)
                 getAllTasks()
+            })
+            .catch((error) => {
+                alert(error)
             })
     } else {
         alert("Task Input must be greater than 1 character")
@@ -51,10 +53,13 @@ function getAllTasks() {
         console.log("Server Response to getAllTasks Function - GET Fetch Status:", res.status)
         return res.json()
     })
-        .then((responseData) => {
-            state.tasks = responseData
-            renderTasks()
-        })
+    .then((responseData) => {
+        state.tasks = responseData
+        renderTasks()
+    })
+    .catch((error) => {
+        alert(error)
+    })
 }
 
 // RENDERING
@@ -94,9 +99,12 @@ function renderTasks() {
                 console.log("Server Response to PATCH Fetch Status:", res.status)
                 return res.json()
             })
-                .then(() => {
-                    getAllTasks()
-                })
+            .then(() => {
+                getAllTasks()
+            })
+            .catch((error) => {
+                alert(error)
+            })
         })
         
         const deleteButton = document.createElement("button")
@@ -114,9 +122,12 @@ function renderTasks() {
                 console.log("Server Response to DELETE Fetch Status:", res.status)
                 return res.json()
             })
-                .then(() => {
-                    getAllTasks()
-                })
+            .then(() => {
+                getAllTasks()
+            })
+            .catch((error) => {
+                alert(error)
+            })
         })
 
         if(task.completed) {
