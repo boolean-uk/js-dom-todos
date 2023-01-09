@@ -8,12 +8,13 @@ const state = {
 const TodosUl = document.querySelector("#todo-list")
 const addButton = document.querySelector("form")
 
-
-    addButton.addEventListener('submit', (event) => {
-        
+// Add button
+addButton.addEventListener('submit', (event) => {
+      // post new list  
     console.log(addButton)
     const newTodo = {
         title: event.target.title.value,
+        completed : false 
     };
     const newTodoAsJSONString = JSON.stringify(newTodo);
     const options ={
@@ -31,14 +32,7 @@ const addButton = document.querySelector("form")
     .then((todo) => {
         console.log("created new todo", todo)
     });
-    })
-
- 
-
-
-
-
-
+})
 
 //NETWORKING
 function getAllTodosList () {
@@ -60,7 +54,6 @@ function getAllTodosList () {
     })
 }
 
-
 //RENDERING
 function renderList () {
     //clear my list before re-rendering
@@ -75,11 +68,41 @@ function renderList () {
         li.setAttribute('class', 'completed')
       }
       TodosUl.append(li);
-      
-      
-    });
+     const completeButton = document.createElement('button')
+      completeButton.innerText= "Complete"
+      completeButton.setAttribute('class', 'update')
+       if(todo.completed === false)
+      li.append(completeButton)
+
+      completeButton.addEventListener('click', ()=> {
+        console.log(completeButton)
     
+        const updating = todo.id;
+        const updatedCompleted = {
+            completed: true,
+        };
+        
+        const updateOptions ={
+            method: "PATCH",
+            body: JSON.stringify(updatedCompleted),
+            headers:  {
+                "Content-Type": "application/json",
+              },
+        }
+        fetch(`http://localhost:3000/todos/${updating}`,updateOptions)
+        .then((response) => response.json())
+        .then((updatedBoolean)=> {
+            console.log(updatedBoolean)
+            window.location.reload();
+        })
+        if(todo.completed) {
+            li.setAttribute('class', 'completed')
+        }
+        console.log(updating)
+        
+    });
+      
+});
+
 }
 getAllTodosList()
-
-
