@@ -12,12 +12,13 @@ const newTaskForm = document.querySelector("form")
 
 newTaskForm.addEventListener("submit", (event) => {
     event.preventDefault()
-    console.log(event)
+
     const newTaskOBJ = {
         title: event.target.title.value,
         completed: false
     }
     const newTaskAsJSON = JSON.stringify(newTaskOBJ)
+
     const options = {
         method: "POST",
         body: newTaskAsJSON,
@@ -54,12 +55,59 @@ function renderTasks() {
     state.tasks.forEach((task) => {
         const li = document.createElement("li")
         li.innerText = task.title
+
+        const completeButton = document.createElement("button")
+        completeButton.innerText = "Complete"
+
+        // Event listener for Complete Button
+        completeButton.addEventListener("click", () => {
+            // grab ID
+            const todoID = task.id
+            // Create object in same format as OG database
+            const updateCompleted = {
+                id: todoID,
+                title: task.title,
+                completed: true
+            }
+            // create Updated options for Request.
+            // And turn jsobj into JSON.
+            const updateOptions = {
+                method: "PATCH",
+                body: JSON.stringify(updateCompleted),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+            fetch(`http://localhost:3000/todos/${todoID}`, updateOptions)
+                .then((res) => res.json())
+                .then(() => {
+                    getAllTasks()
+                })
+        })
         
+        const deleteButton = document.createElement("button")
+        deleteButton.innerText = "Delete"
+
+        deleteButton.addEventListener("click", () => {
+            // grab ID
+            const todoID = task.id
+            // Create object in same format as OG database
+            const options = {
+                method: "DELETE"
+            }
+            fetch(`http://localhost:3000/todos/${todoID}`, options)
+                .then((res) => res.json())
+                .then(() => {
+                    getAllTasks()
+                })
+        })
 
         if(task.completed) {
             li.setAttribute("class", "completed")
+        } else {
+            li.append(completeButton)
         }
-
+        li.append(deleteButton)
         toDoUL.append(li)
     })
 }
