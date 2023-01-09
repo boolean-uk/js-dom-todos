@@ -7,10 +7,21 @@ const state = {
 //select exicting Element
 const todolistUL=document.querySelector('#todo-list')
 const newTodoForm=document.querySelector('form')
-const newTodoListTask= document.querySelector('.div .form .label .input')
-console.log(newTodoForm)
+const newTodoListAddButton= document.querySelector('form')
+const inputValue = document.querySelector('input')
+console.log(inputValue)
+console.log(inputValue.innerText)
+
+
+
+newTodoListAddButton.addEventListener('submit', function(event){
+  event.preventDefault()
+  createTodo()
+})
 
 //Network 
+
+// READ
 function getTodoList(){
     fetch("http://localhost:3000/todos") // send a Request
     .then((response) => {
@@ -18,7 +29,6 @@ function getTodoList(){
       return response.json();
     })
     .then((responseData) => {
-      // responseData = response.json()
       // we have received all task
       // console.log("Received people", responseData);
       // update local STATE with fetched task
@@ -26,14 +36,21 @@ function getTodoList(){
       // render each task
       renderTodoList();
     });
-
 }
+
+
+
+//Create
 function createTodo(){
+  // Send this object to server
+  console.log(inputValue.value)
     const newTodo = {
-        "title": newTodoForm,
+        "title": inputValue.value
       };
+
+      console.log(newTodo)
+  //Convert to string with following options to be read by fetch
       const newTodoTaskAsJSONString = JSON.stringify(newTodo);
-      
       const options = {
         method: "POST",
         body: newTodoTaskAsJSONString, // what data we want to send to server: the JSON version of newPerson
@@ -41,12 +58,12 @@ function createTodo(){
           "Content-Type": "application/json",
         },
       };
-      
-      fetch("http://localhost:3000/todos", options)
+  // Convert data to JSON 
+      fetch("http://localhost:3000/todos", options) //send request
         .then((res) => {
-          return res.json(); // if after delete there is any resposne, convert to JSON
+          return res.json(); // This is JSON object
         })
-        .then((toDo) => {
+        .then((taskRes) => {
         });
 }
 
@@ -64,6 +81,4 @@ function renderTodoList(){
    
 }
 
-
 getTodoList()
-createTodo()
