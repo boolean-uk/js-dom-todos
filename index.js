@@ -7,7 +7,8 @@ const state = {
 //select exicting Element
 const todolistUL=document.querySelector('#todo-list')
 const newTodoForm=document.querySelector('form')
-const newTodoListTask= document.querySelector('title')
+const newTodoListTask= document.querySelector('.div .form .label .input')
+console.log(newTodoForm)
 
 //Network 
 function getTodoList(){
@@ -19,7 +20,7 @@ function getTodoList(){
     .then((responseData) => {
       // responseData = response.json()
       // we have received all task
-      console.log("Received people", responseData);
+      // console.log("Received people", responseData);
       // update local STATE with fetched task
       state.tasks = responseData;
       // render each task
@@ -29,7 +30,7 @@ function getTodoList(){
 }
 function createTodo(){
     const newTodo = {
-        "title": newTodoListTask,
+        "title": newTodoForm,
       };
       const newTodoTaskAsJSONString = JSON.stringify(newTodo);
       
@@ -46,9 +47,6 @@ function createTodo(){
           return res.json(); // if after delete there is any resposne, convert to JSON
         })
         .then((toDo) => {
-          // usually data might just be empty
-          console.log("Created new person=", toDo);
-          console.log("TODO: actually add ToDO locally (update state + change UI)");
         });
 }
 
