@@ -40,6 +40,7 @@ function getAllToDos() {
             // render each person
             renderToDo();
         });
+
 }
 
 // RENDERING
@@ -63,35 +64,47 @@ function renderToDo() {
     });
 }
 
-// //SETTING UP POSTS/NEW TODO ITEMS
+//SETTING UP POSTS/NEW TODO ITEMS
 
-// //Let input submitted = new JS object
+const addButton = document.querySelector("#submit") //is this how you select the input type? 
+const inputTask = document.querySelector("#writeTask")
+addButton.addEventListener("click", (event) => {
+    console.log("clicked Add button!")
+    event.preventDefault();
+    addNewToDo()
+})
 
-// //Convert js object to a JSON string
-// const newToDo ={
-//     title: "", //input, ***********
-//     completed: false,
-// };
-// const newToDoAsJSONString = JSON.stringify(newToDo)
+function addNewToDo() {
+    //Let input submitted = new JS object
+    const newTitle = inputTask.value
+    //Convert js object to a JSON string
+    const newToDo = {
+        title: newTitle, //input, ***********
+        completed: false,
+    };
+    console.log(newToDo)
+    const newToDoAsJSONString = JSON.stringify(newToDo)
 
-// const options = {
-//     method: "POST",
-//     body: newToDoAsJSONString, // what data we want to send to server: the JSON version of newToDo
-//     headers: {
-//         "Content-Type": "application/json",
-//     },
-// };
+    const options = {
+        method: "POST",
+        body: newToDoAsJSONString, // what data we want to send to server: the JSON version of newToDo
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
 
-// fetch("http://localhost:3000/todos", options)
-//     .then((res) => {
-//         return res.json(); // if after delete there is any resposne, convert to JSON
-//     })
-//     .then((todo) => {
-//         console.log("Created new todo item=", todo);
-//         console.log("TODO: actually add todo locally (update state + change UI)");
-//     });
+    fetch("http://localhost:3000/todos", options)
+        .then((res) => {
+            return res.json(); // if after delete there is any resposne, convert to JSON
+        })
+        .then((todo) => {
+            console.log("Created new todo item=", todo);
+            console.log("TODO: actually add todo locally (update state + change UI)");
+            getAllToDos()
+        });
 
 
+}
 
 //****************RENDER THE TODO LIST ON THE PAGE*********************************** */
 getAllToDos()
