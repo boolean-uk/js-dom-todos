@@ -12,36 +12,45 @@ const newTaskForm = document.querySelector("form")
 
 newTaskForm.addEventListener("submit", (event) => {
     event.preventDefault()
+    const taskInput = event.target.title.value
 
-    const newTaskOBJ = {
-        title: event.target.title.value,
-        completed: false
+    if(taskInput.length > 1) {
+        const newTaskOBJ = {
+            title: taskInput,
+            completed: false
+        }
+        const newTaskAsJSON = JSON.stringify(newTaskOBJ)
+    
+        const options = {
+            method: "POST",
+            body: newTaskAsJSON,
+            headers: {
+                "Content-Type": "application/json"
+            },
+        }
+    
+        fetch("http://localhost:3000/todos", options)
+            .then((res) => {
+                console.log("Server Response to POST Fetch Status:", res.status)
+                return res.json()
+            })
+            .then((task) => {
+                console.log(task)
+                getAllTasks()
+            })
+    } else {
+        console.log("Task Input must be greater than 1 character")
     }
-    const newTaskAsJSON = JSON.stringify(newTaskOBJ)
-
-    const options = {
-        method: "POST",
-        body: newTaskAsJSON,
-        headers: {
-            "Content-Type": "application/json"
-        },
-    }
-
-    fetch("http://localhost:3000/todos", options)
-        .then((res) => res.json())
-        .then((task) => {
-            console.log("New Task=", task)
-            console.log("all tasks", state.tasks)
-            getAllTasks()
-        })
 })
 
 // NETWORKING
 function getAllTasks() {
     fetch("http://localhost:3000/todos")
-        .then((res) => res.json())
+    .then((res) => {
+        console.log("Server Response to getAllTasks Function - GET Fetch Status:", res.status)
+        return res.json()
+    })
         .then((responseData) => {
-            console.log("received ToDOs", responseData)
             state.tasks = responseData
             renderTasks()
         })
@@ -80,7 +89,10 @@ function renderTasks() {
                 }
             }
             fetch(`http://localhost:3000/todos/${todoID}`, updateOptions)
-                .then((res) => res.json())
+            .then((res) => {
+                console.log("Server Response to PATCH Fetch Status:", res.status)
+                return res.json()
+            })
                 .then(() => {
                     getAllTasks()
                 })
@@ -97,7 +109,10 @@ function renderTasks() {
                 method: "DELETE"
             }
             fetch(`http://localhost:3000/todos/${todoID}`, options)
-                .then((res) => res.json())
+            .then((res) => {
+                console.log("Server Response to DELETE Fetch Status:", res.status)
+                return res.json()
+            })
                 .then(() => {
                     getAllTasks()
                 })
