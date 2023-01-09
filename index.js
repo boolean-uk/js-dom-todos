@@ -82,6 +82,9 @@ const updateTaskCompletion = (task) => {
 
     fetch(`http://localhost:3000/todos/${task.id}`, options)
         .then(getTasks)
+        .catch((error) => {
+            alert(error)
+        })
 }
 
 
@@ -94,6 +97,9 @@ const deleteTask = (task) => {
     
     fetch(`http://localhost:3000/todos/${task.id}`, options)
         .then(getTasks)
+        .catch((error) => {
+            alert(error)
+        })
 }
 
 
@@ -115,6 +121,9 @@ const createNewTask = (newTaskTitle) => {
 
     fetch("http://localhost:3000/todos", options)
         .then(getTasks)
+        .catch((error) => {
+            alert(error)
+        })
 }
 
 
