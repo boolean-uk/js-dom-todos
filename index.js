@@ -23,6 +23,9 @@ const getTasks = () => {
             state.tasks = tasks
             renderTasks()
         })
+        .catch((error) => {
+            alert(error)
+        })
 }
 
 
