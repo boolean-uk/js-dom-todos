@@ -21,6 +21,7 @@ const state = {
 
 // SELECT EXISTING HTML ELEMENTS
 const toDoUL = document.querySelector("ul"); //#todo-list
+const addButton = document.querySelector("#submit") //is this how you select the input type? 
 
 // NETWORKING
 function getAllToDos() {
@@ -54,20 +55,56 @@ function renderToDo() {
         const li = document.createElement("li");
         li.innerText = `${todo.title}`;
 
+        //ADD a completed button after the li
+        if (!todo.completed) {
+            const completedButton = document.createElement("button")
+            completedButton.setAttribute("class", "completed-button")
+            completedButton.innerText = "completed"
+            li.append(completedButton)
+
+            completedButton.addEventListener("click", (event) => {
+                toggleCompleted()
+            })
+        }
+
+        // append things
+        toDoUL.append(li);
+
         //CSS
         if (todo.completed) {
             li.setAttribute("class", "completed")
         }
 
-        // append li onto ul
-        toDoUL.append(li);
     });
 }
 
-//SETTING UP POSTS/NEW TODO ITEMS
+function toggleCompleted() {
+    // we have now created a completed button, let's update the 
+    //completed status
+   const todo = state.todos //struggling with this
+        const todoID = todo.id; //:):):):):):) smth;
+        const newState = {
+            completed: true 
+        };
+  
 
-const addButton = document.querySelector("#submit") //is this how you select the input type? 
-const inputTask = document.querySelector("#writeTask")
+    //When the user clicks it, make a PATCH request with 
+    const updateState = {
+        method: "PATCH",
+        body: JSON.stringify(newState), //only want to stringify the key, not the boolean
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    // send the next fetch request //(replacing [todoid] with the actual ID (todoID) of the todo):
+    fetch(`http://localhost:3000/todos/todoID`, updateState)
+        .then((res) => res.json())
+        .then((updatedToDoData) => {
+            console.log("We have updated task to complete= true:", state.todos);
+        });
+}
+
+
 addButton.addEventListener("click", (event) => {
     console.log("clicked Add button!")
     event.preventDefault();
@@ -102,8 +139,6 @@ function addNewToDo() {
             console.log("TODO: actually add todo locally (update state + change UI)");
             getAllToDos()
         });
-
-
 }
 
 //****************RENDER THE TODO LIST ON THE PAGE*********************************** */
