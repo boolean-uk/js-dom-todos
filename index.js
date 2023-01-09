@@ -12,8 +12,6 @@ const inputValue = document.querySelector('input')
 console.log(inputValue)
 console.log(inputValue.innerText)
 
-
-
 newTodoListAddButton.addEventListener('submit', function(event){
   event.preventDefault()
   createTodo()
@@ -38,16 +36,14 @@ function getTodoList(){
     });
 }
 
-
-
 //Create
 function createTodo(){
   // Send this object to server
   console.log(inputValue.value)
     const newTodo = {
-        "title": inputValue.value
+        title: inputValue.value
       };
-
+      newTodoListAddButton.reset()
       console.log(newTodo)
   //Convert to string with following options to be read by fetch
       const newTodoTaskAsJSONString = JSON.stringify(newTodo);
@@ -55,22 +51,16 @@ function createTodo(){
         method: "POST",
         body: newTodoTaskAsJSONString, // what data we want to send to server: the JSON version of newPerson
         headers: {
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       };
   // Convert data to JSON 
       fetch("http://localhost:3000/todos", options) //send request
-        .then((res) => {
-          return res.json(); // This is JSON object
-        })
-        .then((taskRes) => {
-        });
+        
+        .then(getTodoList())  
+        
 }
-
-
-
 //Render the data
-
 function renderTodoList(){
     todolistUL.innerHTML=""  
     state.tasks.forEach ((task) => { 
