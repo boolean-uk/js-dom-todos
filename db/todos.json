@@ -3,21 +3,21 @@
     {
       "id": 1,
       "title": "Feed the cat",
-      "completed": true
+      "completed": false
     },
     {
       "id": 2,
       "title": "Cut the grass",
-      "completed": true
+      "completed": false
     },
     {
       "id": 3,
       "title": "Fix the gutters",
-      "completed": true
+      "completed": false
     },
     {
       "title": "test",
-      "completed": true,
+      "completed": false,
       "id": 4
     }
   ]

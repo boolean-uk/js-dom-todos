@@ -57,17 +57,18 @@ function renderTasks() {
         li.innerText = task.title
 
         const completeButton = document.createElement("button")
-        completeButton.innerText = "Complete"
+        completeButton.innerText = "Complete Toggle"
 
         // Event listener for Complete Button
         completeButton.addEventListener("click", () => {
             // grab ID
             const todoID = task.id
+            const completed = !task.completed
             // Create object in same format as OG database
             const updateCompleted = {
                 id: todoID,
                 title: task.title,
-                completed: true
+                completed: completed
             }
             // create Updated options for Request.
             // And turn jsobj into JSON.
@@ -104,10 +105,8 @@ function renderTasks() {
 
         if(task.completed) {
             li.setAttribute("class", "completed")
-        } else {
-            li.append(completeButton)
         }
-        li.append(deleteButton)
+        li.append(completeButton, deleteButton)
         toDoUL.append(li)
     })
 }
