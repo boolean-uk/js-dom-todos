@@ -6,14 +6,14 @@ const state = {
 
 //select exicting Element
 const todolistUL=document.querySelector('#todo-list')
-const newTodoForm=document.querySelector('form')
-const newTodoListAddButton= document.querySelector('form')
+
+const newTodoListForm= document.querySelector('form')
 const inputValue = document.querySelector('input')
 console.log(inputValue)
 console.log(inputValue.innerText)
 
-newTodoListAddButton.addEventListener('submit', function(event){
-  event.preventDefault()
+newTodoListForm.addEventListener('submit', function(event){
+  // event.preventDefault()
   createTodo()
 })
 
@@ -43,7 +43,7 @@ function createTodo(){
     const newTodo = {
         title: inputValue.value
       };
-      newTodoListAddButton.reset()
+      newTodoListForm.reset()
       console.log(newTodo)
   //Convert to string with following options to be read by fetch
       const newTodoTaskAsJSONString = JSON.stringify(newTodo);
