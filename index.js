@@ -8,7 +8,6 @@ const state = {
 // Assign the existed UL with the Id to variable
 const toDoUL = document.querySelector("#todo-list");
 const newform = document.querySelector("form");
-const li = document.createElement("li");
 
 // submit addEventlistner for the form
 newform.addEventListener("submit", (event) => {
@@ -19,7 +18,6 @@ newform.addEventListener("submit", (event) => {
   };
   const newTaskAsJSONString = JSON.stringify(newTask);
 
-
   const options = {
     method: "POST",
     body: newTaskAsJSONString,
@@ -27,7 +25,6 @@ newform.addEventListener("submit", (event) => {
       "Content-Type": "application/json",
     },
   };
-
 
   fetch("http://localhost:3000/todos", options)
     .then((newLi) => {
@@ -46,18 +43,16 @@ function getAllToDo() {
   // send as GET request to receive all people
   fetch("http://localhost:3000/todos") // send a Request
     .then((toDOList) => {
-      // response = the Response from the server
       return toDOList.json();
     })
     .then((toDOListData) => {
       console.log("Received list", toDOListData);
       // update local STATE with fetched todo list
       state.todos = toDOListData;
-      // call the function of rendingtodo list at the end of thi function.
+      // call the function of rendingtodo list at the end of the function.
       renderToDoList();
     });
 }
-
 
 // part 4
 //create the function for rendering the all the todo list information from the json file.
@@ -77,12 +72,10 @@ function renderToDoList() {
     // append li onto ul
     toDoUL.append(li);
 
-    
     // adding new button and appending it to the uncompleted tasks
     const newButton = document.createElement("button");
     newButton.innerText = "Complete";
-    if (list.completed === false) 
-    li.append(newButton);
+    if (list.completed === false) li.append(newButton);
 
     newButton.addEventListener("click", () => {
       console.log(newButton);
@@ -106,6 +99,7 @@ function renderToDoList() {
           console.log("We have updated Task to =", updatedTask);
           window.location.reload();
         });
+
       if (list.completed) {
         li.setAttribute("class", "completed");
       }

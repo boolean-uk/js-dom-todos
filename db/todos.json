@@ -191,18 +191,23 @@
     },
     {
       "title": "cvxc",
-      "completed": false,
+      "completed": true,
       "id": 45
     },
     {
       "title": "nw",
-      "completed": false,
+      "completed": true,
       "id": 46
     },
     {
       "title": "bcv",
       "completed": false,
       "id": 47
+    },
+    {
+      "title": "new task adding",
+      "completed": true,
+      "id": 48
     }
   ]
 }
