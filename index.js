@@ -39,6 +39,7 @@ newTaskForm.addEventListener("submit", (event) => {
                 getAllTasks()
             })
     } else {
+        alert("Task Input must be greater than 1 character")
         console.log("Task Input must be greater than 1 character")
     }
 })
