@@ -7,31 +7,37 @@ const state = {
 // part 2
 // Assign the existed UL with the Id to variable
 const toDoUL = document.querySelector("#todo-list");
-const newform = document.querySelector("form")
+const newform = document.querySelector("form");
+const li = document.createElement("li");
 
+// submit addEventlistner for the form
 newform.addEventListener("submit", (event) => {
-    // event.preventDefault()
-    const newTask = {
-        title: event.target.title.value,
-    }
-    const newTaskAsJSONString = JSON.stringify(newTask)
+  // event.preventDefault()
+  const newTask = {
+    title: event.target.title.value,
+    completed: false,
+  };
+  const newTaskAsJSONString = JSON.stringify(newTask);
 
-    const options ={
-        method: "POST",
-        body:newTaskAsJSONString,
-        headers: {
-        "Content-Type": "application/json",
-        },
-    }
 
-    fetch("http://localhost:3000/todos", options)
-    .then((newLi)=> {
-        return newLi.json();
+  const options = {
+    method: "POST",
+    body: newTaskAsJSONString,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+
+  fetch("http://localhost:3000/todos", options)
+    .then((newLi) => {
+      return newLi.json();
     })
     .then((toDoLi) => {
-        console.log("Created new Task:", toDoLi)
-    })
-})
+      console.log("Created new Task:", toDoLi);
+    });
+});
+
 // part 3
 
 // create the function to get the all list of item in the server
@@ -52,6 +58,7 @@ function getAllToDo() {
     });
 }
 
+
 // part 4
 //create the function for rendering the all the todo list information from the json file.
 function renderToDoList() {
@@ -67,12 +74,46 @@ function renderToDoList() {
     if (list.completed) {
       li.setAttribute("class", "completed");
     }
-
     // append li onto ul
     toDoUL.append(li);
+
+    
+    // adding new button and appending it to the uncompleted tasks
+    const newButton = document.createElement("button");
+    newButton.innerText = "Complete";
+    if (list.completed === false) 
+    li.append(newButton);
+
+    newButton.addEventListener("click", () => {
+      console.log(newButton);
+
+      const completedTaskId = list.id;
+      const updatedTask = {
+        completed: true,
+      };
+
+      const updatedOptions = {
+        method: "PATCH",
+        body: JSON.stringify(updatedTask),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      // send the next fetch request
+      fetch(`http://localhost:3000/todos/${completedTaskId}`, updatedOptions)
+        .then((response) => response.json())
+        .then((updatedTask) => {
+          console.log("We have updated Task to =", updatedTask);
+          window.location.reload();
+        });
+      if (list.completed) {
+        li.setAttribute("class", "completed");
+      }
+      console.log(updating);
+    });
   });
 }
 
-getAllToDo();
-
 // as soon as page loads : call the fetch function
+
+getAllToDo();
