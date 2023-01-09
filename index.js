@@ -55,20 +55,57 @@ function createTodo(){
         }
       };
   // Convert data to JSON 
-      fetch("http://localhost:3000/todos", options) //send request
+
+     fetch("http://localhost:3000/todos", options) //send request
         
         .then(getTodoList())  
         
+}
+
+
+function updatetodo(todos){
+  const todoId = todos.id;
+    const updatetodoData = {
+      completed: true ,
+    };
+
+    const updateOptions = {
+      method: "PATCH",
+      body: JSON.stringify(updatetodoData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    // send the next fetch request
+    fetch(`http://localhost:3000/todos/${todoId}`, updateOptions)
+      .then((res) => res.json())
+      .then((updatetodoData) => {
+        console.log("We have updated person to =", updatetodoData);
+        getTodoList()
+      });
 }
 //Render the data
 function renderTodoList(){
     todolistUL.innerHTML=""  
     state.tasks.forEach ((task) => { 
         const listItem= document.createElement('li')
-        listItem.innerText=`${task.title}`
+        const completButton= document.createElement('button')
+             completButton.innerText="click"
+            listItem.append(completButton)
+        listItem.append(`${task.title}`)
         todolistUL.append(listItem)
+        if (task.completed){
+          listItem.className="completed"
+
+        }
+        completButton.addEventListener('click',function (){
+          updatetodo(task)
+        })
+
     } )
    
 }
+
 
 getTodoList()
