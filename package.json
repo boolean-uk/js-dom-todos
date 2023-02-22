@@ -1,8 +1,12 @@
 {
+  "scripts": {
+    "test": "concurrently --kill-others \"npx json-server --watch db/test_todos.json\" \"npx cypress open\""
+  },
   "dependencies": {
     "json-server": "^0.17.0"
   },
   "devDependencies": {
+    "concurrently": "^7.6.0",
     "cypress": "^12.6.0"
   }
 }
