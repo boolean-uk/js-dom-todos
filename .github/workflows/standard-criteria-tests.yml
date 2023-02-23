@@ -11,16 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Build
-        run: npm ci
-      - name: Curl Test
-        run: |
-          npm run dev & 
-          sleep 10 &&
-          curl -X GET "http://localhost:3000/todos"
       - name: Cypress run
         uses: cypress-io/github-action@v5.0.9 # Released 2023-02-13
         with:
           browser: chrome
-          run: npm ci
+          build: npm ci
           start: npm run dev:test
