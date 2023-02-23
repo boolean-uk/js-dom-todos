@@ -16,3 +16,5 @@ jobs:
         with:
           browser: chrome
           start: npm run dev:test
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
