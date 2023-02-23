@@ -22,7 +22,6 @@ jobs:
         uses: cypress-io/github-action@v5.0.9 # Released 2023-02-13
         with:
           browser: chrome
+          build: curl -X GET "http://localhost:3000/todos"
         env:
           DEBUG: '@cypress/github-action'
-      - name: Post-Cypress Test
-        run: curl -X GET "http://localhost:3000/todos"
