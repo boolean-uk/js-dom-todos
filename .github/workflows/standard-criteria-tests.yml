@@ -16,9 +16,8 @@ jobs:
         with:
           browser: chrome
           build: npm ci
-          start: |
-            npm run dev:test 
-            sleep 10
-            curl -X GET "http://localhost:3000/todos"
+          start: npm run dev:test
           wait-on: "http://localhost:3000/todos"
           wait-on-timeout: 10
+        env:
+          DEBUG: '@cypress/github-action'
