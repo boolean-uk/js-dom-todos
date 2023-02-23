@@ -6,6 +6,7 @@ module.exports = defineConfig({
   },
   e2e: {
     experimentalStudio: true,
+    specPattern: "cypress/tests/**/*.spec.{js,jsx,ts,tsx}",
     // setupNodeEvents(on, config) {
     // }
   }
