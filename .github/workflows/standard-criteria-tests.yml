@@ -14,14 +14,14 @@ jobs:
       - name: Build
         run: npm ci
       - name: Start Up
-        run: | 
-          npm run dev:test & 
-          sleep 10 &&
-          curl -X GET "http://localhost:3000/todos"
+        run: npm run dev:test
+      - name: Curl All
+        run: curl -X GET "http://localhost:3000/todos"
+      - name: Curl 1
+        run: curl -X GET "http://localhost:3000/todos/1"
       - name: Cypress run
         uses: cypress-io/github-action@v5.0.9 # Released 2023-02-13
         with:
           browser: chrome
-          build: curl -X GET "http://localhost:3000/todos"
         env:
           DEBUG: '@cypress/github-action'
