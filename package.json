@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "dev": "npx json-server --watch db/todos.json",
-    "dev:test": "npx json-server --watch db/test_todos.json",
+    "dev": "npx json-server --watch db/todos.json --port 3000 --no-cors",
+    "dev:test": "npx json-server --watch db/test_todos.json --port 3000 --no-cors",
     "cypress": "npx cypress open",
     "test": "concurrently --kill-others \"npm run dev:test\" \"npm run cypress\""
   },
