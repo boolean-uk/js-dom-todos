@@ -22,6 +22,8 @@ const state = {
 // SELECT EXISTING HTML ELEMENTS
 const toDoUL = document.querySelector("ul"); //#todo-list
 const addButton = document.querySelector("#submit") //is this how you select the input type? 
+const taskToAdd = document.querySelector("#writeTask"); //is this how you select the input type? 
+
 
 // NETWORKING
 function getAllToDos() {
@@ -36,9 +38,9 @@ function getAllToDos() {
 
             // we have received all todo items
             console.log("Received todo list", responseData);
-            // update local STATE with fetched people
+            // update local STATE with fetched todos
             state.todos = responseData;
-            // render each person
+            // render each todo
             renderToDo();
         });
 
@@ -87,7 +89,6 @@ function toggleCompleted() {
             completed: true 
         };
   
-
     //When the user clicks it, make a PATCH request with 
     const updateState = {
         method: "PATCH",
@@ -108,18 +109,18 @@ function toggleCompleted() {
 addButton.addEventListener("click", (event) => {
     console.log("clicked Add button!")
     event.preventDefault();
-    addNewToDo()
+    console.log("wanna call a function", addNewToDo())
 })
 
 function addNewToDo() {
     //Let input submitted = new JS object
-    const newTitle = inputTask.value
+    const newTitle = taskToAdd.value;
     //Convert js object to a JSON string
     const newToDo = {
-        title: newTitle, //input, ***********
+        title: newTitle, //input,
         completed: false,
     };
-    console.log(newToDo)
+    console.log("newToDo", newToDo)
     const newToDoAsJSONString = JSON.stringify(newToDo)
 
     const options = {
@@ -136,7 +137,6 @@ function addNewToDo() {
         })
         .then((todo) => {
             console.log("Created new todo item=", todo);
-            console.log("TODO: actually add todo locally (update state + change UI)");
             getAllToDos()
         });
 }
