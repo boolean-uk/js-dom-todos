@@ -29,6 +29,11 @@ function renderToDos() {
     state.toDos.forEach(toDo => {
         const li = document.createElement(`li`)
         li.innerText = toDo.title
+
+        if (toDo.completed) {
+            li.classList.add(`completed`)
+        }
+
         toDoList.append(li)
     })
 }
