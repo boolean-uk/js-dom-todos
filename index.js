@@ -28,7 +28,6 @@ function submitEventListener() {
 
 // CREATES A NEW OBJECT IN TODOS.JSON AND RUNS getToDos() FUNCTION
 function addNewToDo(newItem) {
-
     const newToDo = {
         title: newItem,
         completed: false
@@ -61,25 +60,23 @@ function renderToDos() {
         const li = document.createElement(`li`)
         li.innerHTML = ``
         li.innerText = toDo.title
+        const completeButton = document.createElement(`button`)
 
         if (toDo.completed) {
             li.classList.add(`completed`)
+            completeButton.innerText = `No longer completed?`
         } else {
             li.className = ``
-            const completeButton = document.createElement(`button`)
             completeButton.innerText = `Completed?`
-            completedEventListener(completeButton, toDo)
-            li.append(completeButton)
         }
-        
+        completedEventListener(completeButton, toDo)
+        li.append(completeButton)        
         toDoList.append(li)
     })
 }
 
 // ADDS EVENT LISTENER TO COMPLETED BUTTON
-
 function completedEventListener (completeButton, toDo) {
-    // console.log(toDo.completed)
     completeButton.addEventListener(`click`, () => {
         if (toDo.completed) {
             toDo.completed = false
@@ -109,9 +106,6 @@ function completedEventListener (completeButton, toDo) {
         .then( () => {
             getToDos()
         })
-
-    // console.log(toDo.completed)
-        // getToDos()
     })
 }
 
