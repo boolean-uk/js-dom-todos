@@ -49,12 +49,12 @@ function addNewToDo(newItem) {
 
     fetch(`http://localhost:3000/todos`, options)
     .then(function (response) {
-        console.log('response returned..', response)
+        // console.log('response returned..', response)
         return response.json()
     })
     .then(function (data) {
         state.toDos.push(data)
-        getToDos()
+        renderToDos()
     })
     .catch((error) => {
         console.log(error)
@@ -88,7 +88,7 @@ function renderToDos() {
 
         toDoList.append(li)
     })
-    console.log(state.toDos)
+    // console.log(state.toDos)
 }
 
 // ADDS EVENT LISTENER TO COMPLETED BUTTON
@@ -119,7 +119,8 @@ function completedEventListener (completeButton, toDo) {
             // console.log('response returned..', response)
             return response.json()
         })
-        .then( () => {
+        .then(function (data) {
+            state.toDos = data
             getToDos()
         })
         .catch((error) => {
