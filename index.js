@@ -22,8 +22,13 @@ function submitEventListener() {
     newForm.addEventListener(`submit`, (event) => {
         event.preventDefault()
         let newItem = newForm.title.value
+        if (newItem.length > 1) {
         addNewToDo(newItem)
         newForm.title.value = ``
+        } else {
+            alert(`To Do item cannot be blank`)
+            console.log(`To Do item cannot be blank`)
+        }
     })
 }
 
@@ -51,7 +56,10 @@ function addNewToDo(newItem) {
         state.toDos.push(data)
         getToDos()
     })
-
+    .catch((error) => {
+        console.log(error)
+        alert("An error occurred, please see console log for details")
+    })
 }
 
 // RENDERS TO DO ITEMS ON PAGE
@@ -114,6 +122,10 @@ function completedEventListener (completeButton, toDo) {
         .then( () => {
             getToDos()
         })
+        .catch((error) => {
+            console.log(error)
+            alert("An error occurred, please see console log for details")
+        })
     })
 }
 
@@ -130,6 +142,10 @@ function deleteEventListener (deleteButton, toDo) {
         })
         .then( () => {
             getToDos()
+        })
+        .catch((error) => {
+            console.log(error)
+            alert("An error occurred, please see console log for details")
         })
     })
 }
