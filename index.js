@@ -23,6 +23,7 @@ function submitEventListener() {
         event.preventDefault()
         let newItem = newForm.title.value
         addNewToDo(newItem)
+        newForm.title.value = ``
     })
 }
 
@@ -70,9 +71,16 @@ function renderToDos() {
             completeButton.innerText = `Completed?`
         }
         completedEventListener(completeButton, toDo)
-        li.append(completeButton)        
+        li.append(completeButton)
+
+        const deleteButton = document.createElement(`button`)
+        deleteButton.innerText = `Delete?`
+        deleteEventListener(deleteButton, toDo)
+        li.append(deleteButton)
+
         toDoList.append(li)
     })
+    console.log(state.toDos)
 }
 
 // ADDS EVENT LISTENER TO COMPLETED BUTTON
@@ -100,7 +108,24 @@ function completedEventListener (completeButton, toDo) {
     
         fetch(`http://localhost:3000/todos/${toDo.id}`, options)
         .then(function (response) {
-            console.log('response returned..', response)
+            // console.log('response returned..', response)
+            return response.json()
+        })
+        .then( () => {
+            getToDos()
+        })
+    })
+}
+
+// ADDS EVENT LISTENER TO DELETE BUTTON
+function deleteEventListener (deleteButton, toDo) {
+    deleteButton.addEventListener(`click`, () => {
+        const options = {
+            method: "DELETE",
+        }
+
+        fetch(`http://localhost:3000/todos/${toDo.id}`, options)
+        .then(function (response) {
             return response.json()
         })
         .then( () => {
