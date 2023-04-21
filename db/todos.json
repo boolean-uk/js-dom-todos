@@ -14,6 +14,18 @@
       "id": 3,
       "title": "Fix the gutters",
       "completed": true
+    },
+    {
+      "title": "Fix lights",
+      "id": 4
+    },
+    {
+      "title": "Feed the cat",
+      "id": 5
+    },
+    {
+      "title": "Fix the lights",
+      "id": 6
     }
   ]
 }
