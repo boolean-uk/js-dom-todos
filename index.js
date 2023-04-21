@@ -17,6 +17,7 @@ function renderToDo() {
     }
     getToDoList.append(liEl)
   }
+  console.log('Finished render')
 }
 
 tasks = fetch("http://localhost:3000/todos")
@@ -53,9 +54,8 @@ form.addEventListener('submit', (event) => {
 
   fetch('http://localhost:3000/todos', options).then(function() {
     renderToDo()
-    console.log('helloooo')
+    console.log('POST has finished')
   })
-  
 
   form.reset()
 })
