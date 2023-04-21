@@ -26,12 +26,7 @@ function submitEventListener() {
     })
 }
 
-// Read text entered in input box
-// prevent page reload on submit
-// post request to a constant
-// fetch request to add data to array and run render function
-
-// CREATES A NEW OBJECT IN TODOS.JSON AND RUNS RENDER FUNCTION
+// CREATES A NEW OBJECT IN TODOS.JSON AND RUNS getToDos() FUNCTION
 function addNewToDo(newItem) {
 
     const newToDo = {
@@ -54,23 +49,69 @@ function addNewToDo(newItem) {
     })
     .then(function (data) {
         state.toDos.push(data)
-        renderToDos()
+        getToDos()
     })
 
 }
 
+// RENDERS TO DO ITEMS ON PAGE
 function renderToDos() {
     toDoList.innerHTML = ``
-    // console.log(`state`, state.toDos)
     state.toDos.forEach(toDo => {
         const li = document.createElement(`li`)
+        li.innerHTML = ``
         li.innerText = toDo.title
 
         if (toDo.completed) {
             li.classList.add(`completed`)
+        } else {
+            li.className = ``
+            const completeButton = document.createElement(`button`)
+            completeButton.innerText = `Completed?`
+            completedEventListener(completeButton, toDo)
+            li.append(completeButton)
         }
         
         toDoList.append(li)
+    })
+}
+
+// ADDS EVENT LISTENER TO COMPLETED BUTTON
+
+function completedEventListener (completeButton, toDo) {
+    // console.log(toDo.completed)
+    completeButton.addEventListener(`click`, () => {
+        if (toDo.completed) {
+            toDo.completed = false
+        } else (
+            toDo.completed = true
+        )
+        
+        const changedCompleted = {
+            id: toDo.id,
+            title: toDo.title,
+            completed: toDo.completed
+        }
+        
+        const options = {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(changedCompleted)
+          }
+    
+        fetch(`http://localhost:3000/todos/${toDo.id}`, options)
+        .then(function (response) {
+            console.log('response returned..', response)
+            return response.json()
+        })
+        .then( () => {
+            getToDos()
+        })
+
+    // console.log(toDo.completed)
+        // getToDos()
     })
 }
 

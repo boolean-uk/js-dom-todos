@@ -3,17 +3,12 @@
     {
       "id": 2,
       "title": "Cut the grass",
-      "completed": true
+      "completed": false
     },
     {
       "id": 3,
       "title": "Fix the gutters",
-      "completed": true
-    },
-    {
-      "title": "test",
-      "completed": false,
-      "id": 4
+      "completed": false
     }
   ]
 }
