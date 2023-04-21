@@ -2,18 +2,28 @@
   "todos": [
     {
       "id": 1,
-      "title": "Feed the cat",
-      "completed": false
+      "todoName": "Feed the cat",
+      "isComplete": false
     },
     {
       "id": 2,
-      "title": "Cut the grass",
-      "completed": true
+      "todoName": "Iron the clothes",
+      "isComplete": true
     },
     {
       "id": 3,
-      "title": "Fix the gutters",
-      "completed": true
+      "todoName": "Learn JavaScript",
+      "isComplete": false
+    },
+    {
+      "id": 4,
+      "todoName": "Wash the car",
+      "isComplete": true
+    },
+    {
+      "id": 5,
+      "todoName": "Cook meal",
+      "isComplete": true
     }
   ]
 }
