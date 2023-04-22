@@ -44,7 +44,8 @@ function renderTodoList() {
 
 function createNewTodo(newTodoitem) {
     const newTodo = {
-    title: newTodoitem
+        title: newTodoitem,
+        completed: false
     }
     
     const options = {
@@ -68,11 +69,29 @@ function createNewTodo(newTodoitem) {
 
 // EVENT HANDLES
 
+
 form.addEventListener('submit', (event) => {
     event.preventDefault()
 
     const newTodoitem = titleInput.value
-    createNewTodo(newTodoitem);
+    console.log('my todos', state.todos);
+    let myTodoInList = false
+    state.todos.some(todo => {
+        if (newTodoitem === todo.title) {
+            console.log("Can't add a repeated item to the list")
+            myTodoInList = true
+        }
+    })
+
+    if (myTodoInList === false) {
+        createNewTodo(newTodoitem)
+    }
+    
+
+
+     
+    
+    
 
     form.reset()
 })
