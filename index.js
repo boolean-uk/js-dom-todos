@@ -7,15 +7,12 @@ const state = {
 function getAllToDos() {
   fetch("http://localhost:3000/todos")
     .then(function (response) {
-      /* console.log("response returned..", response); */
       return response.json();
     })
     .then(function (data) {
-      /* console.log("Todo data:", data); */
       state.toDos = data; // store my fetched todos into my state object
       renderAllToDos(); // re render the page!
     });
-  /* console.log("End of getAllToDos()"); */
 }
 
 function renderAllToDos() {
@@ -23,12 +20,9 @@ function renderAllToDos() {
   state.toDos.forEach((toDos) => {
     const li = document.createElement("li");
     li.innerText = `${toDos.id} - ${toDos.title}`;
-    /* console.log("working1"); */
-    // completed tasks turn grey
 
     if (toDos.completed === true) {
       li.setAttribute("class", "completed");
-      /* console.log("working2"); */
     } else {
       const completeButton = document.createElement("button");
       completeButton.innerText = "Complete";
@@ -71,14 +65,6 @@ function completedToDo(toDos) {
     })
     .then(function (data) {
       console.log("ToDo data:", data);
-
-      // first find the exact todo in our list
-      // then update that contact with data
-      // const existingContact = state.contacts.find((item) => item.id === data.id)
-      // if(existingContact) {
-      //   existingContact.name = data.name
-      // }
-
       state.toDos = state.toDos.map((existingToDos) => {
         if (existingToDos.id === data.id) {
           return data;
@@ -121,16 +107,6 @@ function createNewToDos(newToDo) {
 }
 
 function deleteToDos(toDos) {
-  // POST /contacts
-  // method: post
-  // body: the data I want to send
-  // headers: Content-Type
-
-  /*    const newToDo1 = {
-    title: newToDo,
-    completed: false,
-  }; */
-
   const options = {
     method: "DELETE",
     headers: {
@@ -163,5 +139,23 @@ form.addEventListener("submit", (event) => {
   form.reset();
 });
 
+//Error handling
+
+function errorHandle() {
+  fetch(`http://localhost:3000/`, {
+    method: "post",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((error) => {
+      alert(`Error: ${error}`);
+    });
+}
+
 getAllToDos();
 renderAllToDos();
+errorHandle();
