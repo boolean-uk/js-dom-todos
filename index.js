@@ -53,6 +53,7 @@ form.addEventListener('submit', (event) => {
   }
 
   fetch('http://localhost:3000/todos', options).then(function() {
+    state.tasks.push(sendData)
     renderToDo()
     console.log('POST has finished')
   })
