@@ -142,8 +142,49 @@ form.addEventListener("submit", (event) => {
 //Error handling
 
 function errorHandle() {
+  // For GET method
   fetch(`http://localhost:3000/`, {
-    method: "post",
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((error) => {
+      alert(`Error: ${error}`);
+    });
+
+  // FOR PATCH method
+  fetch(`http://localhost:3000/`, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((error) => {
+      alert(`Error: ${error}`);
+    });
+  // For POST method
+  fetch(`http://localhost:3000/todos`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((error) => {
+      alert(`Error: ${error}`);
+    });
+  // For DELETE
+  fetch(`http://localhost:3000/`, {
+    method: "DELETE",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
