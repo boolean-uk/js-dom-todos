@@ -1,5 +1,6 @@
 const todoUL = document.querySelector('ul')
-const todoInput = document.querySelector('form')
+const form = document.querySelector('form')
+const todoInput = document.querySelector('input')
 
 const state = {
     todoArray: []
@@ -30,30 +31,51 @@ function getTodoList() {
         console.log("Contact data:", data)
         state.todoArray = data // stores todo list into my state object
 
-
         renderList() // renders the page
       })
     }
 
-function postTodoList() {
+function postTodoList(newTodo) {
 
-    todoInput.addEventListener('click', function (event) {
+    let newId = state.todoArray.length + 1
+
+    const newTodoAddition = {
+        id: newId,
+        title: newTodo,
+        completed: "false"
+    }
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newTodoAddition)
+    }
+
+    fetch("http://localhost:4000/todos", options)
+    .then(function (response) {
+      console.log('response returned..', response)
+      return response.json()
+    })
+    .then(function (data) {
+      console.log("Contact data:", data)
+      state.todoArray.push(data)   // store my newly created contact into my state object
+      renderList()         // re render the page!
+    })
+ }  
+    
+    form.addEventListener('submit', (event) => {
         event.preventDefault()
-        console.log('called submit')
-    }  
-    )
-
-
-
-
-
-}
-
+        console.log('creating post request')
+        const newTodo = todoInput.value
+        postTodoList(newTodo)
+      
+        form.reset()
+      })
 
 function renderList() {
-
     todoUL.innerHTML = ""
-
     state.todoArray.forEach(list => {
         const li = document.createElement('li')
         li.innerText = list.title
@@ -64,14 +86,9 @@ function renderList() {
 
         todoUL.append(li)
     })
-
-
-
-
 }
 
 
-
+postTodoList()
 getTodoList()
 renderList()
-postTodoList()
