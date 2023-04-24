@@ -46,7 +46,7 @@ const postTodos = (newTodo) => {
 }
 const updateTodo = (todo) => {
         const updatedTodo = {
-        completed: true
+        completed: todo.completed
         }
     const options = {
       method: "PATCH",
@@ -56,16 +56,17 @@ const updateTodo = (todo) => {
       body: JSON.stringify(updatedTodo)
     }
     console.log(todo.id)
-    fetch(`http://localhost:4000/contacts/${todo.id}`, options)
+    fetch(`http://localhost:4000/todos/${todo.id}`, options)
     .then(function (response) {
       return response.json()
     })
     .then((data) => {
-        if (todo.completed === true) {
-            return todo.completed = false
+        console.log(data)
+        if (data.completed === true) {
+            return data.completed = false
         }
-        if (todo.completed === false) {
-            return todo.completed = true
+        if (data.completed === false) {
+            return data.completed = true
         }
     })
     renderTodos()
