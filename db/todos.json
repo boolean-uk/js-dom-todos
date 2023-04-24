@@ -14,6 +14,41 @@
       "id": 3,
       "title": "Fix the gutters",
       "completed": true
+    },
+    {
+      "title": "make bed",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "title": "eat lunch",
+      "completed": false,
+      "id": 5
+    },
+    {
+      "title": "Do groceries ",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "title": "do nothing",
+      "completed": false,
+      "id": 7
+    },
+    {
+      "title": "sfsd",
+      "completed": false,
+      "id": 8
+    },
+    {
+      "title": "do nothing",
+      "completed": false,
+      "id": 9
+    },
+    {
+      "title": "eat",
+      "completed": false,
+      "id": 10
     }
   ]
 }
