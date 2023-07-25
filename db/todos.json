@@ -1,29 +1,24 @@
 {
   "todos": [
     {
-      "title": "Go Shopping",
-      "completed": false,
-      "id": 1
-    },
-    {
-      "title": "Call rand",
-      "completed": true,
-      "id": 2
-    },
-    {
-      "title": "Feed the cat",
+      "title": "Call mom",
       "completed": true,
       "id": 3
     },
     {
-      "title": "Cut the grass",
-      "completed": false,
-      "id": 4
+      "title": "Buy eggs",
+      "completed": true,
+      "id": 6
     },
     {
-      "title": "Go to the grocery store",
+      "title": "Go Shopping",
       "completed": false,
-      "id": 5
+      "id": 7
+    },
+    {
+      "title": "Buy Milk",
+      "completed": false,
+      "id": 8
     }
   ]
 }

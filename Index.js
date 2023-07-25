@@ -124,7 +124,7 @@ function deleteTodo(element){
 }
 
 form.addEventListener('submit', (event) => {
-    event.preventDefault()
+    // event.preventDefault()
 
     const toDo = inputs[0].value
     addTodo(toDo)
@@ -159,8 +159,8 @@ function renderTodos(){
         const deleteButton = document.createElement('button')
         deleteButton.innerText = 'Delete'
         listSelector()[element].append(deleteButton)
-        deleteButton.addEventListener('click', (event)=> {
-            event.preventDefault()
+        deleteButton.addEventListener('click', ()=> {
+            window.location.reload()
             deleteTodo(element)
         })
 
@@ -172,8 +172,8 @@ function renderTodos(){
         const completeButton = document.createElement('button')
         completeButton.innerText = 'Complete'
         listSelector()[element].append(completeButton)
-        completeButton.addEventListener('click', (event) => {
-            event.preventDefault()
+        completeButton.addEventListener('click', () => {
+            window.location.reload()
             completeTodo(element)
         })
         
