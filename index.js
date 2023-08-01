@@ -17,41 +17,48 @@ function loadTodos() {
       const todoList = document.getElementById("todo-list");
       todoList.innerHTML = "";
 
-      data.todos.forEach((todo) => {
-        const listItem = createTodoItem(todo);
-        todoList.appendChild(listItem);
-      });
+      if (data && Array.isArray(data)) {
+        data.forEach((todo) => {
+          const id = todo.id || -1;
+          const listItem = createTodoItem({ ...todo, id });
+          todoList.appendChild(listItem);
+        });
+      } else {
+        console.error("Error: Invalid response data format");
+      }
     })
     .catch((error) => console.error("Error:", error));
 }
 
-const addTodoForm = document.getElementById("add-todo-form");
-addTodoForm.addEventListener("submit", function (event) {
-  event.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const addTodoForm = document.getElementById("add-todo-form");
+  addTodoForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-  const titleInput = this.elements.title;
-  const title = titleInput.value.trim();
+    const titleInput = this.elements.title;
+    const title = titleInput.value.trim();
 
-  if (title) {
-    const todo = {
-      title,
-      completed: false,
-    };
+    if (title) {
+      const todo = {
+        title,
+        completed: false,
+      };
 
-    fetch("http://localhost:3000/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(todo),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        titleInput.value = "";
-        loadTodos();
+      fetch("http://localhost:3000/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(todo),
       })
-      .catch((error) => console.error("Error:", error));
-  }
-});
+        .then((response) => response.json())
+        .then((data) => {
+          titleInput.value = "";
+          loadTodos();
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  });
 
-loadTodos();
+  loadTodos();
+});
