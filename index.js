@@ -58,7 +58,6 @@ async function requestServerAsync(options, attempts) {
 function renderTodoList() {
   clearElement(TODO_LIST);
   STATE.todo.forEach((task) => renderTask(task));
-  return;
 }
 
 function renderTask(task) {
