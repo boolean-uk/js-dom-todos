@@ -11,3 +11,21 @@ body {
   text-decoration: line-through;
   color:grey;
 }
+
+ul {
+  list-style: none;
+}
+
+li {
+  display: grid;
+  grid-template-columns: 150px 200px;
+  gap: 10px;
+  font-size: 20px;
+  border-bottom: solid 1px black;
+  padding: 10px;
+}
+
+.button-div button {
+  margin: 5px;
+  font-size: 18px;
+}
