@@ -29,7 +29,7 @@ function renderToDoItems() {
         const toDoLi = document.createElement('li')
 
         if (toDo.completed) {
-            toDoLi.classList.add('strike-through')
+            toDoLi.classList.add('completed')
             toDoLi.innerText = toDo.title
         }
         else {
