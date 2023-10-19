@@ -12,6 +12,11 @@ function render() {
     renderToDos()
 }
 
+// TODO LIST CLEAR/REFRESH
+function removeToDoItems() {
+    toDoList.innerHTML = ''
+}
+
 // RENDER TODO LIST FUNCTION
 function renderToDos() {
     fetch(`${root}/todos`)
@@ -28,10 +33,16 @@ function renderToDoItems() {
     state.todos.forEach((toDo) => {
         const toDoLi = document.createElement('li')
         const completeButton = document.createElement('button')
-        completeButton.innerText = 'Complete'
+        const deleteButton = document.createElement('button')
 
+        completeButton.innerText = 'Complete'
         completeButton.addEventListener('click', () => {
             completeToDo(toDo.id, toDo.completed)
+        })
+
+        deleteButton.innerText = 'Delete'
+        deleteButton.addEventListener('click', () => {
+            deleteToDoItem(toDo.id)
         })
 
         if (toDo.completed) {
@@ -42,12 +53,12 @@ function renderToDoItems() {
             toDoLi.innerText = toDo.title
             toDoLi.append(completeButton)
         }
+        toDoLi.append(deleteButton)
         toDoList.append(toDoLi)
     })  
 }
 
 // CREATE NEW TODO ITEM FUNCTION
-
 function addNewToDo(event) {
     const data = {
         title: event.target[0].value,
@@ -68,11 +79,6 @@ function addNewToDo(event) {
 // FORM SUBMIT EVENT LISTENER
 form.addEventListener('submit', (event) => addNewToDo(event))
 
-// REMOVE TODOS 
-function removeToDoItems() {
-    toDoList.innerHTML = ''
-}
-
 // UPDATE TODO COMPLETION STATUS
 function completeToDo(id, completed) {
     const data = {
@@ -83,6 +89,17 @@ function completeToDo(id, completed) {
         method: 'PATCH',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(data)
+    }
+
+    fetch(`${root}/todos/${id}`, options)
+    .then((res) => res.json())
+    .then((data) => renderToDos())
+}
+
+// DELETE TODO ITEM
+function deleteToDoItem(id) {
+    const options = {
+        method: 'DELETE'
     }
 
     fetch(`${root}/todos/${id}`, options)
