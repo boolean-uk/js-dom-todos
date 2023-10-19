@@ -43,8 +43,14 @@ async function getServerRootAsync() {
   STATE.root = `http://${data.host}:${data.port}`;
 }
 
-async function requestServerAsync(options) {
+async function requestServerAsync(options, attempts) {
   const res = await fetch(`${STATE.root}/todos`, options);
+
+  if (!res.ok && (attempts < 5 || !attempts)) {
+    requestServerAsync(options, attempts ? ++attempts : 1);
+  } else if (attempts >= 5)
+    throw new Error("damn unlucky, looks like the server stuffed it");
+    
   const data = await res.json();
   await (STATE.todo = data);
 }
