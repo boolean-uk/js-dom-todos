@@ -108,7 +108,6 @@ const addDeleteButton = (listItem, id) => {
     const options = {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json'}, 
-        body: JSON.stringify(newCompleteStatus)  
     }
     fetch(`${root}/todos/${id}`, options)
     .then(response => response.json())
