@@ -27,6 +27,12 @@ function renderToDos() {
 function renderToDoItems() {
     state.todos.forEach((toDo) => {
         const toDoLi = document.createElement('li')
+        const completeButton = document.createElement('button')
+        completeButton.innerText = 'Complete'
+
+        completeButton.addEventListener('click', () => {
+            completeToDo(toDo.id, toDo.completed)
+        })
 
         if (toDo.completed) {
             toDoLi.classList.add('completed')
@@ -34,6 +40,7 @@ function renderToDoItems() {
         }
         else {
             toDoLi.innerText = toDo.title
+            toDoLi.append(completeButton)
         }
         toDoList.append(toDoLi)
     })  
@@ -46,7 +53,7 @@ function addNewToDo(event) {
         title: event.target[0].value,
         completed: false,
     }
-    console.log(data)
+
     const options = {
         method: 'POST',
         headers: {'content-type': 'application/json'},
@@ -59,15 +66,28 @@ function addNewToDo(event) {
 }
 
 // FORM SUBMIT EVENT LISTENER
-form.addEventListener('submit', (event) => {
-    event.preventDefault()
-    addNewToDo(event)
-})
+form.addEventListener('submit', (event) => addNewToDo(event))
 
 // REMOVE TODOS 
 function removeToDoItems() {
     toDoList.innerHTML = ''
 }
 
+// UPDATE TODO COMPLETION STATUS
+function completeToDo(id, completed) {
+    const data = {
+        completed: !completed,
+    }
+
+    const options = {
+        method: 'PATCH',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(data)
+    }
+
+    fetch(`${root}/todos/${id}`, options)
+    .then((res) => res.json())
+    .then((data) => renderToDos())
+}
 
 render()
