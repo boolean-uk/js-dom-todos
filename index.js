@@ -35,6 +35,6 @@ const renderTasks = () => {
             li.className = 'completed'
         }
 
-        const deleteBtn
+    
     })
 }
