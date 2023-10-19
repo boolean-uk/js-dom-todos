@@ -2,52 +2,64 @@
 const state = {
     todos: []
 }
+
 // Linking page to JS.
 const toDoList = document.querySelector('#todo-list')
 const form = document.querySelector('form')
-const root = "http://localhost:3000/todos"
+
+function allToDos() {
+    fetch('http://localhost:3000/todos')
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            state.todos = data
+            renderToDoList()
+        });
+}
 
 // Rendering the Todo list.
-function renderToDoList () {
+function renderToDoList() {
     toDoList.innerHTML = ''
     state.todos.forEach((toDoThings) => {
         const listItems = document.createElement('li')
         listItems.innerText = toDoThings.title
-        toDoList.append(listItems)
+        toDoList.appendChild(listItems)
     })
 }
 
-
 // Adding to the todo list
- async function addToDo (newToDo) {
-    const newtodo = {
-        title: newItem,
+async function addToDo(newTitle) {
+    const newAddition = {
+        title: newTitle,
         completed: false
-    }
-
+    };
     const post = {
         method: 'POST',
         headers: {
-            'Content-Type' : 'application/json'
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newToDo)
+        body: JSON.stringify(newAddition)
     }
-
-    fetch('http://localhost:3000/todos', options)
-    .then((response) => response.json())
-    .then((data) => {
-      state.todos.push(data);
-      rendertoDos();
-    });
+    fetch('http://localhost:3000/todos', post)
+        .then((response) => response.json())
+        .then((data) => {
+            state.todos.push(data)
+            renderToDoList()
+        })
 }
 
-
-// Event listener for the click on Add Todo
-form.addEventListener('submit', (event) => {
+// Event listener for the form submission
+form.addEventListener('submit', async (event) => {
+    event.preventDefault()
+    const input = form.querySelector('input')
     const newToDo = input.value
-    addToDo(newToDo)
+    await addToDo(newToDo)
     form.reset()
 })
+
+allToDos();
+
 
 
 
