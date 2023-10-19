@@ -1,5 +1,5 @@
 const state = {
-    tasks : []
+    todos : []
 };
 
 const taskUL = document.querySelector("#todo-list")
@@ -18,11 +18,11 @@ const getTasks = () => {
     .then((todos) => {return todos.json()})
     .then((tasks) => {
         state.tasks = tasks
-        renderTasks()
+        renderToDoList()
     })
 }
 
-const renderTasks = () => {
+const renderToDoList = () => {
     taskUL.innerHTML = ''
     state.tasks.forEach((task) => {
         const li = document.createElement('li')
@@ -34,7 +34,26 @@ const renderTasks = () => {
         if(task.completed){
             li.className = 'completed'
         }
-
     
     })
+}
+
+const newTask = (task) => {
+
+    const addTask = {
+        title: task,
+        completed: false
+    }
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(addTask)
+    }
+
+    fetch("http://localhost:3000/todos", options)
+        .then()
+
 }
