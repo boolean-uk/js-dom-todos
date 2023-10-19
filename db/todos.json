@@ -14,6 +14,16 @@
       "id": 3,
       "title": "Fix the gutters",
       "completed": true
+    },
+    {
+      "id": "Complete the JSDOM exercise",
+      "title": "Add",
+      "completed": false
+    },
+    {
+      "title": "jnfionONF",
+      "completed": false,
+      "id": 4
     }
   ]
 }
