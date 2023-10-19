@@ -5,6 +5,7 @@ const state = {
 const todoList = document.querySelector("#todo-list");
 const form = document.querySelector("form");
 const input = document.querySelector("input");
+const errorText = document.querySelector(".error");
 
 let todos = state.todos;
 const root = "http://localhost:3000";
@@ -12,12 +13,22 @@ const root = "http://localhost:3000";
 // GET
 const getTodosAndRender = () => {
   fetch(`${root}/todos`)
-    .then(res => res.json())
+    .then(res => { 
+        if (!res.ok) { 
+            if (res.status == "404") {
+                throw new Error(`ERROR: ${res.status} Not Found`)
+            } else {
+                throw new Error(`An error occurred | ${res.status}`)
+            }
+        };
+        return res.json()
+    })
     .then(data => {
         todos = data;
         clearTodoList();
         renderTodos();
-    });
+    })
+    .catch(err => errorText.innerText = err.message)
 };
 
 const renderTodos = () => {
