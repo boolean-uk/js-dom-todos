@@ -26,7 +26,7 @@ function addToDo (newToDo) {
 
 
 }
-
+// Event listener for the click on Add Todo
 form.addEventListener('submit', (event) => {
     const newToDo = input.value
     addToDo(newToDo)
