@@ -11,3 +11,7 @@ body {
   text-decoration: line-through;
   color:grey;
 }
+
+.button {
+  margin-left: 0.5rem;
+}

@@ -9,6 +9,7 @@ const input = document.querySelector("input");
 let todos = state.todos;
 const root = "http://localhost:3000";
 
+// GET
 const getTodosAndRender = () => {
   fetch(`${root}/todos`)
     .then(res => res.json())
@@ -23,16 +24,23 @@ const renderTodos = () => {
     todos.forEach(todo => {
         const li = document.createElement("li");
         li.innerText = todo.title;
+
+        const button = document.createElement("button");
+        button.innerText = "Complete";
+        button.setAttribute("class", "button");
+        button.addEventListener("click",() => {
+            editCompletedStatus(todo.id, todo.completed)
+        });
         
-        if (todo.completed) {
-            li.style.textDecoration = "line-through";
-            li.style.color = "grey";
-        };
+        todo.completed ? 
+        li.setAttribute("class", "completed")
+        : li.append(button);
 
         todoList.append(li);
     })
 };
 
+// POST
 const clearTodoList = () => {
     const allTodos = todoList.querySelectorAll("*");
     allTodos.forEach(todo => todo.remove());
@@ -63,5 +71,19 @@ form.addEventListener("submit", e => {
     form.reset();
 });
 
+// PATCH
+const editCompletedStatus = (id, isComplete) => {
+    const data = { completed: true };
+
+    const opts = {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    };
+
+    fetch(`${root}/todos/${id}`, opts)
+      .then(res => res.json())
+      .then(data => getTodosAndRender())
+};
 
 getTodosAndRender()
