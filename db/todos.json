@@ -14,6 +14,14 @@
       "id": 3,
       "title": "Fix the gutters",
       "completed": true
+    },
+    {
+      "title": "Wash the car",
+      "id": 4
+    },
+    {
+      "title": "feed Myself",
+      "id": 5
     }
   ]
 }
