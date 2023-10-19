@@ -16,24 +16,49 @@
       "completed": true
     },
     {
-      "title": "Potato",
+      "title": "Random task",
+      "completed": false,
       "id": 4
     },
     {
-      "title": "Make coffee",
+      "title": "Another random task",
+      "completed": false,
       "id": 5
     },
     {
-      "title": "Do the dishes",
+      "title": "Yup, another other one",
+      "completed": false,
       "id": 6
     },
     {
-      "title": "Watch tv",
+      "title": "one for the road",
+      "completed": false,
       "id": 7
     },
     {
-      "title": "Mow the lawn",
+      "title": "one more",
+      "completed": false,
       "id": 8
+    },
+    {
+      "title": "one more",
+      "completed": false,
+      "id": 9
+    },
+    {
+      "title": "how 'bout yet another task?",
+      "completed": false,
+      "id": 10
+    },
+    {
+      "title": "",
+      "completed": false,
+      "id": 11
+    },
+    {
+      "title": "figure it out",
+      "completed": false,
+      "id": 12
     }
   ]
 }
