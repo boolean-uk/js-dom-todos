@@ -25,16 +25,26 @@ const renderTodos = () => {
         const li = document.createElement("li");
         li.innerText = todo.title;
 
-        const button = document.createElement("button");
-        button.innerText = "Complete";
-        button.setAttribute("class", "button");
-        button.addEventListener("click",() => {
+        // Complete button
+        const completeButton = document.createElement("button");
+        completeButton.innerText = "Complete";
+        completeButton.setAttribute("class", "button");
+        completeButton.addEventListener("click", () => {
             editCompletedStatus(todo.id, todo.completed)
         });
+
+        // Delete Button
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Delete";
+        deleteButton.setAttribute("class", "button");
+        deleteButton.addEventListener("click", () => {
+            deleteTodo(todo.id)
+        });
+        li.append(deleteButton)
         
         todo.completed ? 
         li.setAttribute("class", "completed")
-        : li.append(button);
+        : li.append(completeButton);
 
         todoList.append(li);
     })
@@ -80,6 +90,15 @@ const editCompletedStatus = (id, isComplete) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
     };
+
+    fetch(`${root}/todos/${id}`, opts)
+      .then(res => res.json())
+      .then(data => getTodosAndRender())
+};
+
+// DELETE
+const deleteTodo = (id) => {
+    const opts = { method: "DELETE" };
 
     fetch(`${root}/todos/${id}`, opts)
       .then(res => res.json())
