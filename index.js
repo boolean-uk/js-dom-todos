@@ -14,7 +14,7 @@ const getTodosAndRender = () => {
     .then(res => res.json())
     .then(data => {
         todos = data;
-
+        clearTodoList();
         renderTodos();
     });
 };
@@ -32,5 +32,36 @@ const renderTodos = () => {
         todoList.append(li);
     })
 };
+
+const clearTodoList = () => {
+    const allTodos = todoList.querySelectorAll("*");
+    allTodos.forEach(todo => todo.remove());
+};
+
+const createTodoRequest = (e) => {
+    const newTodoData = {
+        title: input.value,
+        completed: false
+    };
+
+    const opts = {
+        method: "POST",
+        headers: { "Content-Type" : "application/json" },
+        body: JSON.stringify(newTodoData)
+    };
+
+    fetch(`${root}/todos`, opts)
+      .then(res => res.json())
+      .then(data => {
+        getTodosAndRender()
+      })
+};
+
+form.addEventListener("submit", e => {
+    e.preventDefault();
+    createTodoRequest(e);
+    form.reset();
+});
+
 
 getTodosAndRender()
