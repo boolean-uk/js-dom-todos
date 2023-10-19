@@ -1,6 +1,3 @@
-
-// define all the different variables for the requests
-
 const protocol = "http"
 const baseURL = "localhost:3000"
 
@@ -28,6 +25,9 @@ const renderToDos = () => {
 
 loadState()
 
+const form = document.querySelector("input")
+console.log(`this is what the code finds for "const form = document.querySelector("form")": ${form}`)
 
+const addItem = () => {
 
-
+}
