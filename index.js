@@ -26,6 +26,7 @@ const renderListItems = () => {
             itemTitle.setAttribute('class', 'completed')
         }
         addCompleteButton(item, listItem, item.completed, item.id)
+        addDeleteButton(listItem, item.id)
     })
     
 } 
@@ -96,5 +97,24 @@ const addCompleteButton = (todo, listItem, completed, id) => {
     } 
 }
 
+
+const addDeleteButton = (listItem, id) => {
+    
+    const completeButton = document.createElement('button')
+    completeButton.innerText = 'Delete'       
+    listItem.append(completeButton)
+    completeButton.addEventListener('click', () => { 
+   
+    const options = {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json'}, 
+        body: JSON.stringify(newCompleteStatus)  
+    }
+    fetch(`${root}/todos/${id}`, options)
+    .then(response => response.json())
+    .then(getAndRenderListItems())
+        })
+
+}
 
 
