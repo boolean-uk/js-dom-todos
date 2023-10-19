@@ -33,7 +33,6 @@ const renderListItems = () => {
 
 const getAndRenderListItems = () => {
 
-
     fetch(`${root}/todos`)
     .then(response => response.json())
     .then(data => {
@@ -43,7 +42,7 @@ const getAndRenderListItems = () => {
     })
 }
 
-getAndRenderListItems()
+
 
 
     
@@ -67,7 +66,7 @@ form.addEventListener('submit', event => {
     fetch(`${root}/todos`, option)
     .then(response => response.json())
     .then(() => {
-        renderListItems()
+        getAndRenderListItems()
         })
 })
 
@@ -116,4 +115,4 @@ const addDeleteButton = (listItem, id) => {
 
 }
 
-
+getAndRenderListItems()
