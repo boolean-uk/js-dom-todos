@@ -2,7 +2,7 @@ const STATE = {};
 const FORM = document.querySelector("form");
 const TODO_LIST = document.querySelector("#todo-list");
 
-async function init() {
+async function initAsync() {
   await getServerRootAsync();
   formInit();
   await requestServerAsync();
@@ -69,4 +69,4 @@ function clearElement(element) {
   }
 }
 
-init();
+initAsync();
