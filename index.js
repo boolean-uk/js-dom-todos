@@ -1,59 +1,54 @@
 const state = {
-    todos : []
-};
+    todos: []
+}
 
-const taskUL = document.querySelector("#todo-list")
-const root = 'http://localhost:3000/todos';
+const toDoList = document.querySelector('#todo-list')
 const form = document.querySelector('form')
 
-form.addEventListener('submit', (submit) => {
-    submit.preventDefault()
-    const newTaskTitle = document.querySelector('input').value
-    createNewtask(newTaskTitle)
-})
+function fetchTodos() {
+    fetch('http://localhost:3000/todos')
+        .then((response) => response.json())
+        .then((data) => {
+            state.todos = data
+            renderTodoList()
+        });
+}
 
-const getTasks = () => {
-
-    fetch("http://localhost:3000/todos")
-    .then((todos) => {return todos.json()})
-    .then((tasks) => {
-        state.tasks = tasks
-        renderToDoList()
+function renderTodoList() {
+    toDoList.innerHTML = ''
+    state.todos.forEach((todo) => {
+        const listItem = document.createElement('li')
+        listItem.innerText = todo.title
+        toDoList.appendChild(listItem)
     })
 }
 
-const renderToDoList = () => {
-    taskUL.innerHTML = ''
-    state.tasks.forEach((task) => {
-        const li = document.createElement('li')
-
-        const completeBtn = document.createElement('button')
-        completeBtn.addEventListener('click', () => {
-            updateTaskCompletion(task)
-        }) 
-        if(task.completed){
-            li.className = 'completed'
-        }
-    
-    })
-}
-
-const newTask = (task) => {
-
-    const addTask = {
-        title: task,
+async function addTodo(newTitle) {
+    const newAddition = {
+        title: newTitle,
         completed: false
     }
-
-    const options = {
-        method: "POST",
+    const postOptions = {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(addTask)
+        body: JSON.stringify(newAddition)
     }
-
-    fetch("http://localhost:3000/todos", options)
-        .then()
-
+    fetch('http://localhost:3000/todos', postOptions)
+        .then((response) => response.json())
+        .then((data) => {
+            state.todos.push(data)
+            renderTodoList()
+        })
 }
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault()
+    const input = form.querySelector('input')
+    const newTodo = input.value
+    await addTodo(newTodo)
+    form.reset()
+})
+
+fetchTodos();
