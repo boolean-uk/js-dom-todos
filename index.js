@@ -1,10 +1,11 @@
 const state = []
 const root = "http://localhost:3000"
 
+const form = document.querySelector('form')
 const myList = document.querySelector('#todo-list') 
 
-//const renderList = () => {}
 
+//GET: FETCH AND RENDER TODOS
 
 const renderListItems = () => {
     state.todos.forEach((item) => {
@@ -26,9 +27,6 @@ const renderListItems = () => {
     })
 }
 
-
-//GET todos
-
 fetch(`${root}/todos`)
 .then(response => response.json())
 .then(data => {
@@ -36,7 +34,26 @@ fetch(`${root}/todos`)
     renderListItems()
     })
 
-//render state as a ul
+//POST: ADD NEW DATA, RENDER IT
 
-//
+form.addEventListener('submit', event => {
+
+    const newTodo = {
+        title: event.target[0].value
+    }
+
+    const option = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify(newTodo)
+    }
+
+    fetch(`${root}/todos`, option)
+    .then(response => response.json())
+    .then(() => 
+        renderListItems())
+})
+
+   
+
 
