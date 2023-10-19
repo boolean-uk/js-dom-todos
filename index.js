@@ -18,14 +18,30 @@ function renderToDoList () {
 }
 
 
-function addToDo (newToDo) {
+// Adding to the todo list
+ async function addToDo (newToDo) {
     const newtodo = {
         title: newItem,
         completed: false
     }
 
+    const post = {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(newToDo)
+    }
 
+    fetch('http://localhost:3000/todos', options)
+    .then((response) => response.json())
+    .then((data) => {
+      state.todos.push(data);
+      rendertoDos();
+    });
 }
+
+
 // Event listener for the click on Add Todo
 form.addEventListener('submit', (event) => {
     const newToDo = input.value
