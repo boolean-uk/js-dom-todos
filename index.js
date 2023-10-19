@@ -32,10 +32,13 @@ function renderToDos() {
 function renderToDoItems() {
     state.todos.forEach((toDo) => {
         const toDoLi = document.createElement('li')
+        const buttonDiv = document.createElement('div')
         const completeButton = document.createElement('button')
         const deleteButton = document.createElement('button')
 
-        completeButton.innerText = 'Complete'
+        buttonDiv.classList.add('button-div')
+
+        completeButton.innerText = 'Complete' 
         completeButton.addEventListener('click', () => {
             completeToDo(toDo.id, toDo.completed)
         })
@@ -44,6 +47,7 @@ function renderToDoItems() {
         deleteButton.addEventListener('click', () => {
             deleteToDoItem(toDo.id)
         })
+        buttonDiv.append(deleteButton)
 
         if (toDo.completed) {
             toDoLi.classList.add('completed')
@@ -51,10 +55,11 @@ function renderToDoItems() {
         }
         else {
             toDoLi.innerText = toDo.title
-            toDoLi.append(completeButton)
+            buttonDiv.append(completeButton)
         }
-        toDoLi.append(deleteButton)
+
         toDoList.append(toDoLi)
+        toDoLi.append(buttonDiv)
     })  
 }
 
