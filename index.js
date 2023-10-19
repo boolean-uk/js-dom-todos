@@ -10,9 +10,7 @@ async function initAsync() {
 }
 
 function formInit() {
-  FORM.addEventListener("submit", (e) => {
-    buttonAddPostAsync(e);
-  });
+  FORM.addEventListener("submit", (e) => buttonAddPostAsync(e));
 }
 
 async function buttonAddPostAsync(event) {
@@ -33,6 +31,39 @@ async function buttonAddPostAsync(event) {
   };
 
   await requestServerAsync(options);
+  FORM.reset();
+  await requestServerAsync();
+  renderTodoList();
+}
+
+async function buttonCompleteTaskAsync(event) {
+  event.preventDefault();
+
+  const payload = {
+    completed: true,
+  };
+
+  const options = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  };
+
+  await patchServerAsync(options, event.target.parentElement.id);
+  await requestServerAsync();
+  renderTodoList();
+}
+
+async function buttonDeleteTaskAsync(event) {
+  event.preventDefault();
+
+  const options = {
+    method: "DELETE",
+  };
+
+  await deleteServerAsync(options, event.target.parentElement.id);
   await requestServerAsync();
   renderTodoList();
 }
@@ -48,11 +79,44 @@ async function requestServerAsync(options, attempts) {
 
   if (!res.ok && (attempts < 5 || !attempts)) {
     requestServerAsync(options, attempts ? ++attempts : 1);
-  } else if (attempts >= 5)
+  } else if (attempts >= 5) {
+    const button = FORM.querySelector(`[value=Add]`);
+    console.log("button :>> ", button);
+    button.classList.add("error");
+    button.value = "Error!";
     throw new Error("damn unlucky, looks like the server stuffed it");
-    
+  }
+
   const data = await res.json();
   await (STATE.todo = data);
+}
+
+async function patchServerAsync(options, id, attempts) {
+  const res = await fetch(`${STATE.root}/todos/${id}`, options);
+
+  if (!res.ok && (attempts < 5 || !attempts)) {
+    patchServerAsync(options, id, attempts ? ++attempts : 1);
+  } else if (attempts >= 5) {
+    const li = document.getElementById(id);
+    const button = li.querySelector(".completeButton");
+    button.innerText = "Error!";
+    button.classList.add("error");
+    throw new Error("damn unlucky, looks like the server stuffed it");
+  }
+}
+
+async function deleteServerAsync(options, id, attempts) {
+  const res = await fetch(`${STATE.root}/todos/${id}`, options);
+
+  if (!res.ok && (attempts < 5 || !attempts)) {
+    deleteServerAsync(options, id, attempts ? ++attempts : 1);
+  } else if (attempts >= 5) {
+    const li = document.getElementById(id);
+    const button = li.querySelector(".deleteButton");
+    button.innerText = "Error!";
+    button.classList.add("error");
+    throw new Error("damn unlucky, looks like the server stuffed it");
+  }
 }
 
 function renderTodoList() {
@@ -61,10 +125,26 @@ function renderTodoList() {
 }
 
 function renderTask(task) {
-  console.log("renderTask");
   const li = document.createElement("li");
   li.innerText = task.title;
-  li.classList.add(task.completed ? "completed" : null);
+  li.id = task.id;
+
+  if (task.completed) {
+    li.classList.add("completed");
+  } else {
+    const completeButton = document.createElement("button");
+    completeButton.innerText = "complete";
+    completeButton.classList.add("completeButton");
+    completeButton.addEventListener("click", (e) => buttonCompleteTaskAsync(e));
+    li.append(completeButton);
+  }
+
+  const deleteButton = document.createElement("button");
+  deleteButton.innerText = "delete";
+  deleteButton.classList.add("deleteButton");
+  deleteButton.addEventListener("click", (e) => buttonDeleteTaskAsync(e));
+  li.append(deleteButton);
+
   TODO_LIST.append(li);
 }
 
