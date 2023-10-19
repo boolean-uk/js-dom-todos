@@ -25,7 +25,7 @@ const renderListItems = () => {
         if (item.completed) {
             itemTitle.setAttribute('class', 'completed')
         }
-        addCompleteButton(item, listItem)
+        addCompleteButton(item, listItem, item.completed, item.id)
     })
     
 } 
@@ -72,44 +72,29 @@ form.addEventListener('submit', event => {
 
 
 
-const addCompleteButton = (todo, listItem) => {
+const addCompleteButton = (todo, listItem, completed, id) => {
     
     if (todo.completed === false){
         const completeButton = document.createElement('button')
         completeButton.innerText = 'Complete'       
         listItem.append(completeButton)
+        completeButton.addEventListener('click', () => {
+        
+        const newCompleteStatus = {
+         completed: !completed,
+        }
+
+        const options = {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json'}, 
+            body: JSON.stringify(newCompleteStatus)  
+        }
+        fetch(`${root}/todos/${id}`, options)
+        .then(response => response.json())
+        .then(getAndRenderListItems())
+        })
     } 
 }
-
-
-
-//PATCH 
-
-
-// / Edit method - PATCH
-// const editDogIsGoodRequest = (id, isGood) => {
-//   const data = {
-//     isGood: !isGood,
-//   }
-
-//   const options = {
-//     method: 'PATCH',
-//     headers: { 'Content-Type': 'application/json' },
-//     // body needs to be a JSON format of data
-//     body: JSON.stringify(data)
-//   }
-
-//   console.log(data)
-//   // e.g. localhost:3000/dogs/1
-//   fetch(`${root}/dogs/${id}`, options)
-//     .then((response) => response.json())
-//     .then(() => {
-//       console.log('edited dog', data)
-//       // After the request succeeds, I get the latest data from the DB
-//       // and update the page
-//       getDogsAndRender();
-//     });
-// }
 
 
 
