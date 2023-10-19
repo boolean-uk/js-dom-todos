@@ -14,6 +14,10 @@
       "id": 3,
       "title": "Fix the gutters",
       "completed": true
+    },
+    {
+      "title": "clean the bins",
+      "id": 4
     }
   ]
 }
