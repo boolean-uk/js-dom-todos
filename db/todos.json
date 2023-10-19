@@ -18,7 +18,7 @@
     {
       "id": "Complete the JSDOM exercise",
       "title": "Add",
-      "completed": false
+      "completed": true
     },
     {
       "title": "jnfionONF",
@@ -37,7 +37,7 @@
     },
     {
       "title": "tis",
-      "completed": false,
+      "completed": true,
       "id": 7
     },
     {
@@ -47,12 +47,12 @@
     },
     {
       "title": "new",
-      "completed": false,
+      "completed": true,
       "id": 9
     },
     {
       "title": "task",
-      "completed": true,
+      "completed": false,
       "id": 10
     }
   ]

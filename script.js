@@ -57,14 +57,16 @@ const renderTasks = () => {
     })
 }
 
-//function that adds a complete button to each uncompleted task in the list 
+//function that adds a complete button to each task in the list 
 const addCompleteButton = (task) => {
     const completeButton = document.createElement('button')
-    completeButton.innerText = 'Complete'
     //argument to change innerText on completed task buttons
     if (task.completed) {
         completeButton.innerText = 'Revisit'
+    } else {
+        completeButton.innerText = 'Complete'
     }
+    console.log(task.completed)
     //event listener to call my completeTask function that changes the completed status of the task to true
     completeButton.addEventListener('click', (event) => {
         completeTask(task.id, !task.completed)
