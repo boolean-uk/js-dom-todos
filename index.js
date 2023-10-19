@@ -86,9 +86,8 @@ async function requestServerAsync(options, attempts) {
     button.value = "Error!";
     throw new Error("damn unlucky, looks like the server stuffed it");
   }
-
   const data = await res.json();
-  await (STATE.todo = data);
+  (STATE.todo = data);
 }
 
 async function patchServerAsync(options, id, attempts) {
