@@ -17,3 +17,21 @@ const getTodoListAndRender = () => {
     .catch(error => console.error('Error fetching Todos:', error));
 };
 
+const createTodoRequest = (event) => {
+  const data = {
+    title: event.target.value
+  }
+
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }
+
+  fetch('${root}', options)
+  .then ((response) => response.json())
+  .then((data)=> {
+    console.log('todo created', data);
+    getTodoListAndRender();
+  })
+}
