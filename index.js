@@ -23,7 +23,6 @@ const renderToDos = () => {
     } else {
       const checkBox = document.createElement("input")
       checkBox.setAttribute("type", "checkbox")
-      checkBox.addEventListener("click", (event) => console.log(event.target))
       li.appendChild(checkBox)
     }
 
