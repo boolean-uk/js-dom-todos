@@ -101,10 +101,10 @@ const toggleItem = (item) => {
 
 const deleteItem = (item) => {
   const title = item.innerText
-  console.log(title)
+  // console.log(title)
   const stateItem = state.find(val => val.title === title)
 
-  console.log(stateItem)
+  // console.log(stateItem)
 
   const options = {
     method: "DELETE",
