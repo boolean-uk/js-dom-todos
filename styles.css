@@ -18,6 +18,15 @@ body {
   font-size: 0.7em;
 }
 
+
 li > * {
   margin: 0 5px;
+}
+
+ul#todo-list:empty::before {
+  content: "No items. Go lie in the sun for a bit!";
+  font-style: italic;
+  color: lightgrey;
+  margin: 0;
+  padding: 0;
 }
