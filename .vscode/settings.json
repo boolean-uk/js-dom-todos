@@ -1,4 +1,5 @@
 {
   "cSpell.words": ["Todos"],
-  "liveServer.settings.ignoreFiles": ["**/*.json"]
+  "liveServer.settings.ignoreFiles": ["**/*.json"],
+  "liveServer.settings.port": 5501
 }
