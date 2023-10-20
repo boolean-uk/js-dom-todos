@@ -58,7 +58,15 @@ const addFunctionalButton = () => {
   })
 }
 
+const duplicate = (itemStr) => !!state.find(val => val.title.toLowerCase() === itemStr.toLowerCase())
+
 const addItem = (inputStr) => {
+
+  if (duplicate(inputStr) === true) {
+    alert(`Duplicate! Will not add "${inputStr}"`)
+    return
+  }
+
   const body = JSON.stringify({
     title: inputStr,
     completed: false
@@ -97,7 +105,6 @@ const toggleItem = (item) => {
     .then(() => loadState())
     .catch(error => console.log('error', error));
 }
-
 
 const deleteItem = (item) => {
   const title = item.innerText
