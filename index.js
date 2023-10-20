@@ -1,6 +1,10 @@
 const protocol = "http"
 const baseURL = "localhost:3000"
 
+const headers = {
+  "Content-Type": "application/json"
+}
+
 let state
 
 const loadState = () => {
@@ -23,6 +27,8 @@ const renderToDos = () => {
     } else {
       const checkBox = document.createElement("input")
       checkBox.setAttribute("type", "checkbox")
+      checkBox.setAttribute("value", "unchecked")
+      checkBox.addEventListener("click", () => toggleItem(li))
       li.appendChild(checkBox)
     }
 
@@ -33,7 +39,6 @@ const renderToDos = () => {
 const clearListRender = () => {
   const listItems = document.querySelectorAll("li")
   listItems.forEach(item => item.remove())
-  console.log(listItems)
 }
 
 const addFunctionalButton = () => {
@@ -44,10 +49,6 @@ const addFunctionalButton = () => {
 }
 
 const addItem = (inputStr) => {
-  const headers = {
-    "Content-Type": "application/json"
-  }
-
   const body = JSON.stringify({
     title: inputStr,
     completed: false
@@ -62,6 +63,26 @@ const addItem = (inputStr) => {
   console.log(options, options.body)
 
   fetch(`${protocol}://${baseURL}/todos`, options)
+    .then(() => clearListRender())
+    .then(() => loadState())
+    .catch(error => console.log('error', error));
+}
+
+const toggleItem = (item) => {
+  const title = item.innerText
+  const stateItem = state.find(val => val.title === title)
+
+  body = JSON.stringify({
+    completed: !stateItem.completed
+  })
+
+  const options = {
+    method: "PATCH",
+    headers: headers,
+    body: body
+  }
+
+  fetch(`${protocol}://${baseURL}/todos/${stateItem.id}`, options)
     .then(() => clearListRender())
     .then(() => loadState())
     .catch(error => console.log('error', error));

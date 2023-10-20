@@ -27,17 +27,17 @@
     },
     {
       "title": "Test",
-      "completed": false,
+      "completed": true,
       "id": 6
     },
     {
       "title": "Hi",
-      "completed": false,
+      "completed": true,
       "id": 7
     },
     {
       "title": "It's me",
-      "completed": false,
+      "completed": true,
       "id": 8
     },
     {
