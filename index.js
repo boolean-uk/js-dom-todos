@@ -27,8 +27,14 @@ function getTodos() {
 // adding list items into html for all items in state //
 const renderTodos = () => {
     state.todos.forEach((todo) => {
+
         const li = document.createElement("li");
         li.innerText = todo.title;
+
+        const completed = document.createElement('input')
+        completed.type = 'checkbox'
+
+        toDoList.append(completed)
         toDoList.append(li);
     });
 };
@@ -40,6 +46,7 @@ addTodo.addEventListener("submit", (e) => {
     // NEW DATA TO ADD INTO STATE, added from when input button is submited and taking value //
     const data = {
         title: e.target[0].value,
+        completed: false,
     };
 
     // The information for a post request //
