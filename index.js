@@ -6,6 +6,29 @@ const root = 'http://localhost:3000/todos'
 const todoList = document.querySelector('#todo-list')
 const todoForm = document.querySelector('#todo-form')
 
+const renderTodo = () => {
+ 
+  while (todoList.firstChild) {
+    todoList.removeChild(todoList.firstChild);
+  }
+
+
+  state.todo.forEach(todo => {
+    const todoItem = document.createElement('li');
+    todoItem.textContent = todo.title;
+
+    if (todo.completed) {
+      todoItem.style.textDecoration = 'line-through';
+      todoItem.style.color = 'grey';
+    }
+
+    todoList.appendChild(todoItem);
+  });
+};
+
+
+
+
 const getTodoListAndRender = () => {
   fetch(`${root}`)
     .then((response) => response.json())
@@ -25,7 +48,7 @@ const createTodoRequest = (event) => {
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    body: JSON.stringify({title:todoText, completed:false})
   }
 
   fetch('${root}', options)
@@ -35,3 +58,13 @@ const createTodoRequest = (event) => {
     getTodoListAndRender();
   })
 }
+
+document.getElementById('todo-text').value = '';
+
+todoForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  createTodoRequest(event);
+});
+
+getTodoListAndRender();
+
