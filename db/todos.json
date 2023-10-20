@@ -4,46 +4,6 @@
       "id": 1,
       "title": "Feed the cat",
       "completed": false
-    },
-    {
-      "id": 2,
-      "title": "Cut the grass",
-      "completed": true
-    },
-    {
-      "id": 3,
-      "title": "Fix the gutters",
-      "completed": true
-    },
-    {
-      "title": "as",
-      "completed": false,
-      "id": 4
-    },
-    {
-      "title": "Grocery Shopping",
-      "completed": false,
-      "id": 5
-    },
-    {
-      "title": "Test",
-      "completed": true,
-      "id": 6
-    },
-    {
-      "title": "Hi",
-      "completed": true,
-      "id": 7
-    },
-    {
-      "title": "It's me",
-      "completed": true,
-      "id": 8
-    },
-    {
-      "title": "I'm the problem, it's me",
-      "completed": false,
-      "id": 9
     }
   ]
 }

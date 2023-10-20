@@ -11,3 +11,13 @@ body {
   text-decoration: line-through;
   color:grey;
 }
+
+.delete {
+  background-color: rgba(255,255,255,0);
+  border: none;
+  font-size: 0.7em;
+}
+
+li > * {
+  margin: 0 5px;
+}

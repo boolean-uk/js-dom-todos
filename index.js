@@ -21,16 +21,26 @@ const renderToDos = () => {
 
   state.forEach(element => {
     const li = document.createElement("li")
-    li.innerText = element.title
+
+    const pTitle = document.createElement("span")
+
+    pTitle.innerText = element.title
+    li.appendChild(pTitle)
     if (element.completed) {
       li.setAttribute("class", "completed")
     } else {
       const checkBox = document.createElement("input")
       checkBox.setAttribute("type", "checkbox")
       checkBox.setAttribute("value", "unchecked")
-      checkBox.addEventListener("click", () => toggleItem(li))
+      checkBox.addEventListener("click", () => toggleItem(pTitle))
       li.appendChild(checkBox)
     }
+
+    const delButton = document.createElement("button")
+    delButton.innerText = "🗑️"
+    delButton.setAttribute("class", "delete")
+    delButton.addEventListener("click", () => deleteItem(pTitle))
+    li.appendChild(delButton)
 
     list.appendChild(li)
   });
@@ -80,6 +90,25 @@ const toggleItem = (item) => {
     method: "PATCH",
     headers: headers,
     body: body
+  }
+
+  fetch(`${protocol}://${baseURL}/todos/${stateItem.id}`, options)
+    .then(() => clearListRender())
+    .then(() => loadState())
+    .catch(error => console.log('error', error));
+}
+
+
+const deleteItem = (item) => {
+  const title = item.innerText
+  console.log(title)
+  const stateItem = state.find(val => val.title === title)
+
+  console.log(stateItem)
+
+  const options = {
+    method: "DELETE",
+    headers: headers
   }
 
   fetch(`${protocol}://${baseURL}/todos/${stateItem.id}`, options)
