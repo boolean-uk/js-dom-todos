@@ -52,6 +52,10 @@ form.addEventListener('submit', event => {
 
     event.preventDefault()
 
+    if (!event.target[0].value) {
+        throw "Oops, it looks like this field is empty!"
+    }
+
     const newTodo = {
         title: event.target[0].value,
         completed: false
@@ -63,7 +67,9 @@ form.addEventListener('submit', event => {
         body: JSON.stringify(newTodo)
     }
 
+
     fetch(`${root}/todos`, option)
+    .catch(error => alert(error))
     .then(response => response.json())
     .then(() => {
         getAndRenderListItems()

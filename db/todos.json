@@ -1,13 +1,8 @@
 {
   "todos": [
     {
-      "title": "Yup, another other one",
-      "completed": true,
-      "id": 2
-    },
-    {
       "title": "Read a book ",
-      "completed": false,
+      "completed": true,
       "id": 3
     },
     {
