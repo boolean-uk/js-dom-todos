@@ -18,16 +18,55 @@ const renderToDos = () => {
   state.forEach(element => {
     const li = document.createElement("li")
     li.innerText = element.title
-    if (element.completed) li.setAttribute("class", "completed")
+    if (element.completed) {
+      li.setAttribute("class", "completed")
+    } else {
+      const checkBox = document.createElement("input")
+      checkBox.setAttribute("type", "checkbox")
+      checkBox.addEventListener("click", (event) => console.log(event.target))
+      li.appendChild(checkBox)
+    }
+
     list.appendChild(li)
   });
 }
 
-loadState()
-
-const form = document.querySelector("input")
-console.log(`this is what the code finds for "const form = document.querySelector("form")": ${form}`)
-
-const addItem = () => {
-
+const clearListRender = () => {
+  const listItems = document.querySelectorAll("li")
+  listItems.forEach(item => item.remove())
+  console.log(listItems)
 }
+
+const addFunctionalButton = () => {
+  const form = document.querySelector("form")
+  form.addEventListener("submit", (event) => {
+    addItem(event.target[0].value)
+  })
+}
+
+const addItem = (inputStr) => {
+  const headers = {
+    "Content-Type": "application/json"
+  }
+
+  const body = JSON.stringify({
+    title: inputStr,
+    completed: false
+  })
+
+  const options = {
+    method: "POST",
+    headers: headers,
+    body: body,
+  }
+
+  console.log(options, options.body)
+
+  fetch(`${protocol}://${baseURL}/todos`, options)
+    .then(() => clearListRender())
+    .then(() => loadState())
+    .catch(error => console.log('error', error));
+}
+
+loadState()
+addFunctionalButton()
