@@ -31,10 +31,10 @@ const renderTodos = () => {
         const li = document.createElement("li");
         li.innerText = todo.title;
 
-        const completed = document.createElement('input')
-        completed.type = 'checkbox'
+        // const completed = document.createElement('input')
+        // completed.type = 'checkbox'
 
-        toDoList.append(completed)
+        // toDoList.append(completed)
         toDoList.append(li);
     });
 };
@@ -59,10 +59,11 @@ addTodo.addEventListener("submit", (e) => {
     // posting new todo to json and then adding to html //
     fetch(`${root}/todos`, options)
         .then((res) => res.json())
-        .then((res) => {
+        .then((data) => {
             state.todos = data;
             getTodos()
         });
 });
 
 getTodos();
+
