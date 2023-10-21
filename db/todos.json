@@ -19,6 +19,16 @@
       "title": "Do some chores",
       "completed": false,
       "id": 4
+    },
+    {
+      "title": "Some more chores",
+      "completed": false,
+      "id": 5
+    },
+    {
+      "title": "Hello",
+      "completed": false,
+      "id": 6
     }
   ]
 }

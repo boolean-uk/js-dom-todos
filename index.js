@@ -60,7 +60,6 @@ addTodo.addEventListener("submit", (e) => {
     fetch(`${root}/todos`, options)
         .then((res) => res.json())
         .then((data) => {
-            state.todos = data;
             getTodos()
         });
 });
