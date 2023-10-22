@@ -1,9 +1,7 @@
 {
   "dependencies": {
     "json-server": "^0.17.0"
-  }
-}
-{
+  },
   "todos": [
     {
       "id": 1,
@@ -20,14 +18,10 @@
       "title": "Fix the gutters",
       "completed": true
     },
-  
     {
+      "id": 4,
       "title": "",
-      "completed": false,
-      "id": 5
-    },
-  
-    {
-
+      "completed": false
+    }
   ]
 }
