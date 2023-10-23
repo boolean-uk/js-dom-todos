@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
     // Function to fetch and render js-dom-todos
     const fetchAndRenderTodos = () => {
-      fetch("http://localhost:5500")
+      fetch("http://localhost:3000")
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       const newTodo = todoInput.value;
       if (newTodo) {
-        fetch("http://localhost:5500/todos", {
+        fetch("http://localhost:3000/todos", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
     // Function to complete a todo
     const completeTodo = (todoId) => {
-      fetch(`http://localhost:5500/js-dom-todos/${todoId}`, {
+      fetch(`http://localhost:3000/js-dom-todos/${todoId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
     // Function to delete a todo
     const deleteTodo = (todoId) => {
-      fetch(`http://localhost:5500/js-dom-todos/${todoId}`, {
+      fetch(`http://localhost:3000/js-dom-todos/${todoId}`, {
         method: "DELETE",
       })
         .then(() => fetchAndRenderTodos()) // Fetch and render updated todos
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       const newTodo = todoInput.value;
       if (newTodo) {
-        fetch("http://localhost:5500", {
+        fetch("http://localhost:3000", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
     // Function to delete a todo
     const deleteTodo = (todoId) => {
-        fetch(`http://localhost:5500/todos/${todoId}`, { // Corrected the URL
+        fetch(`http://localhost:3000/todos/${todoId}`, { // Corrected the URL
           method: "DELETE",
         })
           .then(() => {
