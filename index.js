@@ -29,9 +29,9 @@ const formFunction = () => {
         todoLi.innerText = todos.title;
         todoUlList.append(todoLi)
         console.log(todoLi)
-        if (todos.completed === true)
+        if (todos.completed === true) {
         todoLi.setAttribute('class', 'completed')
-
+    }
     })
 }
 
