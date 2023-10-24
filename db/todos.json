@@ -11,9 +11,14 @@
       "completed": true
     },
     {
-      "id": 3,
-      "title": "Fix the gutters",
-      "completed": true
+      "title": "swimming",
+      "completed": true,
+      "id": 3
+    },
+    {
+      "title": "Cooking",
+      "completed": true,
+      "id": 4
     }
   ]
 }
