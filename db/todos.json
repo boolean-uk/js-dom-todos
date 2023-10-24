@@ -1,29 +1,24 @@
 {
   "todos": [
     {
-      "title": "hi",
-      "completed": false,
-      "id": 1
+      "id": 1,
+      "title": "Feed the cat",
+      "completed": false
     },
     {
-      "title": "what",
-      "completed": false,
-      "id": 2
+      "id": 2,
+      "title": "Cut the grass",
+      "completed": true
     },
     {
-      "title": "aaaaaaaa",
-      "completed": false,
+      "title": "swimming",
+      "completed": true,
       "id": 3
     },
     {
-      "title": "cchtchtc",
-      "completed": false,
+      "title": "Cooking",
+      "completed": true,
       "id": 4
-    },
-    {
-      "title": "aa",
-      "completed": false,
-      "id": 5
     }
   ]
 }

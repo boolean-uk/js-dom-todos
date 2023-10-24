@@ -1,64 +1,74 @@
 const state = {
-    todos:[]
-}
+    todos : [
 
-//linking 
+    ]
+};
+
+//top variable to work 
+
+//main source
+const root = 'http://localhost:3000'
+
+//fot the ul 
+const ul = document.querySelector('#todo-list')
+
+//for the posting of the data 
 const form = document.querySelector('form')
-const toDoList = document.querySelector('#todo-list')
 
-function toDos(){
-    fetch('https://localhost:3000/todos')
-    .then((response)=>{
-        return response.json()
-    })
-    .then ((data)=>{
-        state.todos = data
-        renderToDoList();
-    })
+//main function to call at last 
+function main(){
+    renderToDo();
 }
 
-//rendering
-function renderToDoList(){
-    toDoList.innerHTML=''
-    state.todos.forEach((thingsToDO)=>{
-        const list =document.createElement('li')
-        list.innerText=thingsToDO.title
-        toDoList.appendChild(list)
-    })
+//to remove everything inside the ul
+function remove(){
+    ul.innerHTML = '';
 }
-
-async function addToDo(newTitle){
-    const newlist ={
-        title: newTitle,
-        completed: false
-    }
-    const post = {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newlist)
-    }
-    fetch('http://localhost:3000/todos', post)
-        .then((response) => {
-            return response.json()
-        })
-        .then((data) => {
-            state.todos.push(data)
-            renderToDoList()
+//rendertodo function to fetch the data from the database
+function renderToDo(){
+    fetch(`${root}/todos`)
+        .then((response)=>response.json())
+        .then((data)=>{
+            state.todos = data;
+            remove()
+            renderList();
         })
 }
 
 
-form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+//function to render the data inside the ul
+function renderList (){
+    state.todos.forEach((toDo)=>{
+        const li = document.createElement('li')
 
-    const input = form.querySelector('input')
-    const newToDo = input.value
-    await addToDo(newToDo)
-    form.reset()
+            //to make the true and false value 
+            if(toDo.completed){
+                li.innerText = toDo.title
+            }else{
+                li.setAttribute('class','completed')
+                li.innerText = toDo.title
+            }
+            
+        ul.append(li);
+    })
+}
+
+form.addEventListener('submit',(event)=>{
+    // event.preventDefault();
+    //this is the data I want to post indie the database
+    const data = {
+        title : event.target[0].value,
+        completed : true
+    }
+    //option  to post 
+    const options = {
+        method: 'POST',
+        headers : {'content-type':'application/json'},
+        body : JSON.stringify(data)
+    }
+    //now using post method to post
+    fetch(`${root}/todos`,options)
+        .then((response)=>response.json())
+        .then((data)=>renderList(event))
 })
-
-ToDos();
-
-
+main();
