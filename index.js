@@ -1,4 +1,5 @@
 const toDoList = document.querySelector("#todo-list");
+const completedTodos = document.getElementById("completed-todos");
 const root = "http://localhost:3000";
 const addTodo = document.querySelector("form");
 
@@ -10,7 +11,9 @@ const state = {
 // removal function //
 const removeTodos = () => {
     const toDoContainer = toDoList.querySelectorAll("*");
+    const completedListItems = completedTodos.querySelectorAll("li");
     toDoContainer.forEach((child) => child.remove());
+    completedListItems.forEach((child) => child.remove());
 };
 
 // intial fetch, update of state and display of todos on page //
@@ -28,14 +31,24 @@ function getTodos() {
 const renderTodos = () => {
     state.todos.forEach((todo) => {
 
+        const completedBox = document.createElement("input");
+        completedBox.setAttribute("class", "completedBox");
+        completedBox.type = "checkbox";
+        completedBox.checked = todo.completed;
+
+        const label = document.createElement("label");
+        label.append(completedBox);
+        label.append(todo.title);
+
         const li = document.createElement("li");
-        li.innerText = todo.title;
+        li.append(label)
+        li.classList = "todoItem"
 
-        // const completed = document.createElement('input')
-        // completed.type = 'checkbox'
-
-        // toDoList.append(completed)
-        toDoList.append(li);
+        if (todo.completed){
+            completedTodos.append(li)
+        } else {
+            toDoList.append(li)
+        }
     });
 };
 
@@ -60,9 +73,8 @@ addTodo.addEventListener("submit", (e) => {
     fetch(`${root}/todos`, options)
         .then((res) => res.json())
         .then((data) => {
-            getTodos()
+            getTodos();
         });
 });
 
 getTodos();
-

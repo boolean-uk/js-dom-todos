@@ -11,3 +11,7 @@ body {
   text-decoration: line-through;
   color:grey;
 }
+
+.todoItem {
+  list-style: none;
+}
