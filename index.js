@@ -27,6 +27,22 @@ function getTodos() {
         });
 }
 
+function deleteTodos(id) {
+
+    const options = {
+        method: "DELETE",
+        headers: { "Content-type": "application/json" },
+    };
+
+    fetch(`${root}/todos/${id}`, options)
+        .then((response) => response.json())
+        .then((data) => {
+            state.todos = data;
+            removeTodos();
+            renderTodos();
+        });
+}
+
 // adding list items into html for all items in state //
 const renderTodos = () => {
     state.todos.forEach((todo) => {
@@ -40,16 +56,28 @@ const renderTodos = () => {
         label.append(completedBox);
         label.append(todo.title);
 
+        
         const li = document.createElement("li");
         li.append(label);
         li.classList = "todoItem";
+        
+        const button = document.createElement("button")
+        button.innerText = "X"
+        button.classList = "button"
+        button.value = todo.title
+        li.append(button)
 
         if (todo.completed) {
             completedTodos.append(li);
             li.classList = "completedTodoItem"
+            button.remove()
         } else {
             toDoList.append(li);
         }
+
+        button.addEventListener("click", (event)=> {
+            deleteTodos(5)
+        })
 
         completedBox.addEventListener("change", (event) => {
             console.log("hi");

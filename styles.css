@@ -16,3 +16,11 @@ body {
 .todoItem {
   list-style: none;
 }
+
+.button {
+  color: red;
+  background-color: rgba(255, 0, 0, 0.066);
+  border: grey solid 1px;
+  border-radius: 100px;
+  margin-left: 10px;
+}
