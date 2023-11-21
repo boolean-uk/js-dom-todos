@@ -30,25 +30,39 @@ function getTodos() {
 // adding list items into html for all items in state //
 const renderTodos = () => {
     state.todos.forEach((todo) => {
-
         const completedBox = document.createElement("input");
         completedBox.setAttribute("class", "completedBox");
         completedBox.type = "checkbox";
         completedBox.checked = todo.completed;
+        completedBox.value = todo.title;
 
         const label = document.createElement("label");
         label.append(completedBox);
         label.append(todo.title);
 
         const li = document.createElement("li");
-        li.append(label)
-        li.classList = "todoItem"
+        li.append(label);
+        li.classList = "todoItem";
 
-        if (todo.completed){
-            completedTodos.append(li)
+        if (todo.completed) {
+            completedTodos.append(li);
         } else {
-            toDoList.append(li)
+            toDoList.append(li);
         }
+
+        completedBox.addEventListener("change", (event) => {
+            console.log("hi");
+            const checkboxData = event.target.value;
+            console.log(checkboxData);
+            state.todos.forEach((todo) => {
+                console.log(todo.title)
+                if (checkboxData === todo.title) {
+                    todo.completed = !todo.completed;
+                }
+            });
+            removeTodos();
+            renderTodos();
+        });
     });
 };
 
