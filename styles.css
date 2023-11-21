@@ -7,9 +7,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.completed {
+.completedTodoItem {
   text-decoration: line-through;
   color:grey;
+  list-style: none;
 }
 
 .todoItem {

@@ -46,6 +46,7 @@ const renderTodos = () => {
 
         if (todo.completed) {
             completedTodos.append(li);
+            li.classList = "completedTodoItem"
         } else {
             toDoList.append(li);
         }
