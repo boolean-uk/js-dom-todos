@@ -2,6 +2,16 @@ const root = 'http://localhost:3000/todos';
 const todoList = document.querySelector('#todo-list');
 const todoForm = document.querySelector('form');
 
+const getTodos = () => {
+  fetch(root)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Fetched Todos:', data);
+      renderTodo(data);
+    })
+    .catch(error => console.error('Error fetching Todos:', error));
+};
+
 const renderTodo = (todos) => {
   while (todoList.firstChild) {
     todoList.removeChild(todoList.firstChild);
@@ -18,15 +28,6 @@ const renderTodo = (todos) => {
   });
 };
 
-const getTodos = () => {
-  fetch(root)
-    .then(response => response.json())
-    .then(data => {
-      console.log('Fetched Todos:', data);
-      renderTodo(data);
-    })
-    .catch(error => console.error('Error fetching Todos:', error));
-};
 
 const createTodo = (title) => {
   const options = {
