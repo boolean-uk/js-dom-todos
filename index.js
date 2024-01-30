@@ -25,11 +25,12 @@ const renderTodos = () => {
     })
 }
 
+const todoInput = document.getElementById("todo-input")
+
 todoForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    console.log(event)
     const data = {
-        title: event,
+        title: todoInput.value,
     };
 
     const options = {
@@ -45,8 +46,6 @@ todoForm.addEventListener('submit', (event) => {
             getTodos();
         });
 })
-
-
 
 getTodos()
 
