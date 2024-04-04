@@ -13,6 +13,7 @@ function makeTodoList(todoData) {
     todoList.innerHTML = ''
     todoData.forEach((item) => {
         const todoLi = document.createElement('li')
+        const completeButton = createCompleteButton()
 
         todoLi.innerText = item.title
 
@@ -20,6 +21,7 @@ function makeTodoList(todoData) {
             todoLi.classList.add('completed')
         }
 
+        todoLi.append(completeButton)
         todoList.append(todoLi)
     });
     
@@ -52,5 +54,12 @@ async function createTodo() {
     getTodo()
 }
 
+function createCompleteButton() {
+    const completeButton = document.createElement('button')
+
+    completeButton.innerText = 'Complete'
+
+    return completeButton
+}
 
 getTodo()
