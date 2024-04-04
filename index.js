@@ -46,9 +46,9 @@ render()
 
 form.addEventListener("submit", (e) => {
     e.preventDefault()
-
-    const taskTitle = e.currentTarget.children[0].children[0].value
-    console.log(taskTitle)
+    const textBox = e.currentTarget.children[0].children[0]
+    const taskTitle = textBox.value
+    textBox.value = ""
     newTask(taskTitle)
 })
 
