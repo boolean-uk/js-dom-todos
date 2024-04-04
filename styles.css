@@ -11,3 +11,7 @@ body {
   text-decoration: line-through;
   color:grey;
 }
+
+.complete-button {
+  margin-right: 1rem;
+}

@@ -21,8 +21,12 @@ function makeTodoList(todoData) {
             todoLi.classList.add('completed')
         }
 
-        todoLi.append(completeButton)
+        todoLi.prepend(completeButton)
         todoList.append(todoLi)
+
+        completeButton.addEventListener('click', () => {
+            completeTodo(item)
+        })
     });
     
 }
@@ -57,9 +61,29 @@ async function createTodo() {
 function createCompleteButton() {
     const completeButton = document.createElement('button')
 
+    completeButton.classList.add('complete-button')
     completeButton.innerText = 'Complete'
 
     return completeButton
+}
+
+async function completeTodo(item) {
+    const url = `https://boolean-api-server.fly.dev/MyrtheDullaart/todo/${item.id}`
+    const options = {
+        method: 'PUT',
+        body: JSON.stringify({
+            title: item.title,
+            completed: !item.completed
+        }),
+        headers: {
+            'Content-type': 'application/json',
+        },
+    }
+
+    const response = await fetch(url, options)
+    const json = await response.json()
+
+    getTodo()
 }
 
 getTodo()
