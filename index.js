@@ -13,6 +13,7 @@ function makeTodoList(todoData) {
     todoList.innerHTML = ''
     todoData.forEach((item) => {
         const todoLi = document.createElement('li')
+        const deleteButton = createDeleteButton()
 
         todoLi.innerText = item.title
 
@@ -29,6 +30,7 @@ function makeTodoList(todoData) {
             })
         }
         
+        todoLi.prepend(deleteButton)
         todoList.append(todoLi)
         
     });
@@ -89,5 +91,15 @@ async function completeTodo(item) {
 
     getTodo()
 }
+
+function createDeleteButton() {
+    const deleteButton = document.createElement('button')
+
+    deleteButton.classList.add('delete-button')
+    deleteButton.innerText = 'Delete'
+
+    return deleteButton
+}
+
 
 getTodo()

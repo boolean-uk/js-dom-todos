@@ -12,6 +12,10 @@ body {
   color:grey;
 }
 
-.complete-button {
+.complete-button{
+  margin-left: 1rem;
+}
+
+.delete-button  {
   margin-right: 1rem;
 }
