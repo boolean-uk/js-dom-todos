@@ -48,24 +48,33 @@ form.addEventListener('submit', (event) => {
 })
 
 async function createTodo() {
-    const url = 'https://boolean-api-server.fly.dev/MyrtheDullaart/todo'
-    const options = {
-        method: 'POST',
-        body: JSON.stringify({
-            title: todoInput.value,
-            completed: false
-        }),
-        headers: {
-            'Content-type': 'application/json',
-        },
+    try {
+        const url = 'https://boolean-api-server.fly.dev/MyrtheDullaart/todo'
+        const options = {
+            method: 'POST',
+            body: JSON.stringify({
+                title: todoInput.value,
+                completed: false
+            }),
+            headers: {
+                'Content-type': 'application/json',
+            },
+        }
+
+        const response = await fetch(url, options)
+        const json = await response.json()
+
+        todoInput.value = ''
+
+        getTodo()
+
+        if(response.status >= 400) {
+            throw new Error ('Failed to create new todo')
+        }
+
+    } catch(error) {
+        alert(error.message)
     }
-
-    const response = await fetch(url, options)
-    const json = await response.json()
-
-    todoInput.value = ''
-
-    getTodo()
 }
 
 function createCompleteButton() {
@@ -78,22 +87,30 @@ function createCompleteButton() {
 }
 
 async function completeTodo(item) {
-    const url = `https://boolean-api-server.fly.dev/MyrtheDullaart/todo/${item.id}`
-    const options = {
-        method: 'PUT',
-        body: JSON.stringify({
-            title: item.title,
-            completed: !item.completed
-        }),
-        headers: {
-            'Content-type': 'application/json',
-        },
+    try {
+        const url = `https://boolean-api-server.fly.dev/MyrtheDullaart/todo/${item.id}`
+        const options = {
+            method: 'PUT',
+            body: JSON.stringify({
+                title: item.title,
+                completed: !item.completed
+            }),
+            headers: {
+                'Content-type': 'application/json',
+            },
+        }
+
+        const response = await fetch(url, options)
+        const json = await response.json()
+
+        getTodo()
+
+        if(response.status >= 400) {
+            throw new Error ('Failed to complete todo')
+        }
+    } catch(error) {
+        alert(error.message)
     }
-
-    const response = await fetch(url, options)
-    const json = await response.json()
-
-    getTodo()
 }
 
 function createDeleteButton() {
@@ -106,22 +123,31 @@ function createDeleteButton() {
 }
 
 async function deleteTodo(item) {
-    const url = `https://boolean-api-server.fly.dev/MyrtheDullaart/todo/${item.id}`
-    const options = {
-        method: 'DELETE',
-        body: JSON.stringify({
-            title: item.title,
-            completed: item.completed
-        }),
-        headers: {
-            'Content-type': 'application/json',
-        },
+    try {
+        const url = `https://boolean-api-server.fly.dev/MyrtheDullaart/todo/${item.id}`
+        const options = {
+            method: 'DELETE',
+            body: JSON.stringify({
+                title: item.title,
+                completed: item.completed
+            }),
+            headers: {
+                'Content-type': 'application/json',
+            },
+        }
+
+        const response = await fetch(url, options)
+        const json = await response.json()
+
+        getTodo()
+
+        if(response.status >= 400) {
+            throw new Error ('Failed to delete todo')
+        }
+
+    } catch(error) {
+        alert(error.message)
     }
-
-    const response = await fetch(url, options)
-    const json = await response.json()
-
-    getTodo()
 }
 
 getTodo()
