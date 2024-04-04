@@ -63,15 +63,13 @@ const postItem = async (newToDo) => {
       "content-type": "application/json",
     },
   };
-  try {
-    const result = await fetch(url, options)
-    console.log('fetch finished', result)
 
-
-  } catch (error) {
-    console.log('asdiohasdhasdh', error);
+  const result = await fetch(url, options);
+  console.log(result);
+  if (result.status >= 400) {
+    const jsonResult = await result.json();
+    reportError(jsonResult.error);
   }
-
   getToDos();
 };
 
@@ -97,6 +95,25 @@ const completeItem = async (item) => {
   };
   await fetch(url, options);
   getToDos();
+};
+
+//Report error
+const reportError = (errorText) => {
+  const errorP = document.querySelector("#error-report");
+  const trimmedText = errorText
+    .toString()
+    .split("")
+    .splice(
+      errorText.toString().split("").indexOf(" ") + 1,
+      errorText.toString().split("").length
+    )
+    .join("");
+  
+  errorP.innerText = trimmedText;
+
+  setTimeout(() => {
+    errorP.innerText = "";
+  }, 3000);
 };
 
 getToDos();
