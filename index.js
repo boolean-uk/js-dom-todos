@@ -6,7 +6,6 @@ async function getTodo() {
     const response = await fetch('https://boolean-api-server.fly.dev/MyrtheDullaart/todo')
     const data = await response.json()
 
-    console.log(data)
     makeTodoList(data)
 }
 
@@ -28,7 +27,7 @@ function makeTodoList(todoData) {
 
 form.addEventListener('submit', (event) => {
     event.preventDefault()
-    
+
     createTodo()
 })
 
@@ -47,6 +46,8 @@ async function createTodo() {
 
     const response = await fetch(url, options)
     const json = await response.json()
+
+    todoInput.value = ''
 
     getTodo()
 }
