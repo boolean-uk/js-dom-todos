@@ -1,4 +1,6 @@
 const todoList = document.querySelector('#todo-list')
+const form = document.querySelector('#form')
+const todoInput = document.querySelector('#input')
 
 async function getTodo() {
     const response = await fetch('https://boolean-api-server.fly.dev/MyrtheDullaart/todo')
@@ -23,5 +25,31 @@ function makeTodoList(todoData) {
     });
     
 }
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault()
+    
+    createTodo()
+})
+
+async function createTodo() {
+    const url = 'https://boolean-api-server.fly.dev/MyrtheDullaart/todo'
+    const options = {
+        method: 'POST',
+        body: JSON.stringify({
+            title: todoInput.value,
+            completed: false
+        }),
+        headers: {
+            'Content-type': 'application/json',
+        },
+    }
+
+    const response = await fetch(url, options)
+    const json = await response.json()
+
+    getTodo()
+}
+
 
 getTodo()
