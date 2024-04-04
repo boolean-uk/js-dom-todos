@@ -33,6 +33,10 @@ function makeTodoList(todoData) {
         todoLi.prepend(deleteButton)
         todoList.append(todoLi)
         
+        deleteButton.addEventListener('click', () => {
+            deleteTodo(item)
+        })
+
     });
     
 }
@@ -101,5 +105,23 @@ function createDeleteButton() {
     return deleteButton
 }
 
+async function deleteTodo(item) {
+    const url = `https://boolean-api-server.fly.dev/MyrtheDullaart/todo/${item.id}`
+    const options = {
+        method: 'DELETE',
+        body: JSON.stringify({
+            title: item.title,
+            completed: item.completed
+        }),
+        headers: {
+            'Content-type': 'application/json',
+        },
+    }
+
+    const response = await fetch(url, options)
+    const json = await response.json()
+
+    getTodo()
+}
 
 getTodo()
