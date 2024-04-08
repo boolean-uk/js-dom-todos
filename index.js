@@ -1,7 +1,7 @@
 // index.js
 
 // Replace 'GITHUB_USERNAME' with your actual GitHub username
-const API_URL = 'https://boolean-api-server.fly.dev/GITHUB_USERNAME/todo';
+const API_URL = 'https://boolean-api-server.fly.dev/timsakande/todo';
 
 const todoList = document.getElementById('todo-list');
 const todoForm = document.querySelector('form');
