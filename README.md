@@ -10,21 +10,21 @@ We're going to put to good use our knowledge of `fetch` by creating a full appli
 
 ## Instructions
 - Write your code in the `index.js` file
-- [Use this API documentation for your data](https://boolean-api-server.fly.dev/api-docs/)
-    - The API url follows this format: `https://boolean-api-server.fly.dev/GITHUB_USERNAME/todo`
+- [Use this API documentation for your data](https://boolean-uk-api-server.fly.dev/api-docs/#/todo)
+    - The API url follows this format: `https://boolean-uk-api-server.fly.dev/GITHUB_USERNAME/todo`
     - **Replace `GITHUB_USERNAME` with your actual github username**
-    - Example: `https://boolean-api-server.fly.dev/vherus/todo`
-- Make a `GET` request with `fetch` to `https://boolean-api-server.fly.dev/GITHUB_USERNAME/todo` to load all Todos from the server and render them in a list. Completed Todos should be grey and scored out.
+    - Example: `https://boolean-uk-api-server.fly.dev/vherus/todo`
+- Make a `GET` request with `fetch` to `https://boolean-uk-api-server.fly.dev/GITHUB_USERNAME/todo` to load all Todos from the server and render them in a list. Completed Todos should be grey and scored out.
     - **NOTE: REPLACE `GITHUB_USERNAME` WITH YOUR ACTUAL GITHUB USERNAME**
-- When the form is submitted, make `POST` request with `fetch` to `https://boolean-api-server.fly.dev/GITHUB_USERNAME/todo` to create a new Todo. Update the list of Todos without reloading the page.
+- When the form is submitted, make `POST` request with `fetch` to `https://boolean-uk-api-server.fly.dev/GITHUB_USERNAME/todo` to create a new Todo. Update the list of Todos without reloading the page.
     - **NOTE: REPLACE `GITHUB_USERNAME` WITH YOUR ACTUAL GITHUB USERNAME**
 
 ## Extended
-- Add a "Complete" button to each uncompleted Todo. When the user clicks it, make a `PATCH` request with `fetch` to `https://boolean-api-server.fly.dev/GITHUB_USERNAME/todo/TODO_ID` to update the todo as completed. Update the list of Todos without reloading the page.
+- Add a "Complete" button to each uncompleted Todo. When the user clicks it, make a `PATCH` request with `fetch` to `https://boolean-uk-api-server.fly.dev/GITHUB_USERNAME/todo/TODO_ID` to update the todo as completed. Update the list of Todos without reloading the page.
     - **NOTE: REPLACE `GITHUB_USERNAME` WITH YOUR ACTUAL GITHUB USERNAME**
     - **Replace `TODO_ID` with the actual ID of the `todo`**
 
-- Add a "Delete" button to each Todo. When the user clicks it, make a `DELETE` request with `fetch` to `https://boolean-api-server.fly.dev/GITHUB_USERNAME/todo/TODO_ID` to remove the todo. Update the list of Todos without reloading the page.
+- Add a "Delete" button to each Todo. When the user clicks it, make a `DELETE` request with `fetch` to `https://boolean-uk-api-server.fly.dev/GITHUB_USERNAME/todo/TODO_ID` to remove the todo. Update the list of Todos without reloading the page.
     - **NOTE: REPLACE `GITHUB_USERNAME` WITH YOUR ACTUAL GITHUB USERNAME**
     - **Replace `TODO_ID` with the actual ID of the `todo`**
 
