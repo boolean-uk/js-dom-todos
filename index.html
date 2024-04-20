@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,15 +9,19 @@
   <script defer src="index.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <div>
     <h2>Add Todo</h2>
+    <div class="error">
+      <p id="error"></p>
+    </div>
     <form>
-        <label>
-          Title
-          <input name="title" />
-        </label>
-        <input type="submit" value="Add"></input>
+      <label>
+        Title
+        <input name="title" />
+      </label>
+      <input type="submit" value="Add"></input>
     </form>
   </div>
   <div>
@@ -26,4 +31,5 @@
     </ul>
   </div>
 </body>
+
 </html>
