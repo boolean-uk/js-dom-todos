@@ -3,19 +3,27 @@ const POST_URL = 'https://boolean-uk-api-server.fly.dev/th0jensen/todo'
 const PATCH_URL = 'https://boolean-uk-api-server.fly.dev/th0jensen/todo/'
 const DELETE_URL = 'https://boolean-uk-api-server.fly.dev/th0jensen/todo/'
 
-async function getAllTodos() {
+type TodoItem = {
+    id: number
+    title: string
+    completed: Boolean
+}
+
+type TodoItems = TodoItem[]
+
+async function getAllTodos(): Promise<any> {
     fetch(GET_URL)
         .then(async (response) => {
             const todos = await response.json()
             renderTodoList(todos)
         })
         .catch((error) => {
-            alert('ERROR: Could not fetch todos: ', error)
-            throw new Error('ERROR: Could not fetch todos: ', error)
+            alert('ERROR: Could not fetch todos: ' + error)
+            throw new Error('ERROR: Could not fetch todos: ' + error)
         })
 }
 
-async function addTodo(todo) {
+async function addTodo(todo: TodoItem['title']): Promise<any> {
     const postResponse = await fetch(POST_URL, {
         method: 'POST',
         headers: {
@@ -29,7 +37,10 @@ async function addTodo(todo) {
     console.log(todoContent)
 }
 
-async function updateTodo(todo, completed) {
+async function updateTodo(
+    todo: TodoItem,
+    completed: TodoItem['completed']
+): Promise<any> {
     const postResponse = await fetch(PATCH_URL + todo.id, {
         method: 'PUT',
         headers: {
@@ -43,7 +54,7 @@ async function updateTodo(todo, completed) {
     console.log(todoContent)
 }
 
-async function deleteTodo(todo) {
+async function deleteTodo(todo: TodoItem): Promise<any> {
     const postResponse = await fetch(DELETE_URL + todo.id, {
         method: 'DELETE',
         headers: {
@@ -57,24 +68,40 @@ async function deleteTodo(todo) {
     console.log(todoContent)
 }
 
-function render() {
+function render(): void {
     const form = document.querySelector('form')
+
+    if (!form) {
+        throw new Error('ERROR: No form found in DOM')
+    }
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault()
         const newTodo = new FormData(form)
-        await addTodo(newTodo.get('title'))
-            .then(() => {
-                getAllTodos()
-            })
-            .catch((err) => {
-                alert(`ERROR: Could add ${todo.title}: ${err}`)
-                throw new Error(`ERROR: Could add ${todo.title}: ${err}`)
-            })
+        let newData = newTodo.get('title')
+        if (newData === null) {
+            console.error('ERROR: Input is invalid')
+        } else {
+            newData = newData.toString()
+            await addTodo(newData)
+                .then(() => {
+                    getAllTodos()
+                })
+                .catch((err) => {
+                    alert(`ERROR: Could add todo}: ${err}`)
+                    throw new Error(`ERROR: Could add todo: ${err}`)
+                })
+        }
     })
 }
 
-function renderTodoList(todos) {
+function renderTodoList(todos: TodoItems): void {
     const todoList = document.getElementById('todo-list')
+
+    if (!todoList) {
+        throw new Error('ERROR: No todo-list found in DOM')
+    }
+
     todoList.innerHTML = ''
 
     todos.forEach((todo) => {
@@ -102,7 +129,7 @@ function renderTodoList(todos) {
             checkbox.checked = false
         }
 
-        checkbox.addEventListener('click', async () => {
+        checkbox.addEventListener('click', async (): Promise<any> => {
             if (!todo.completed) {
                 await updateTodo(todo, true)
                     .then(() => {
@@ -130,7 +157,7 @@ function renderTodoList(todos) {
             }
         })
 
-        deleteButton.addEventListener('click', async () => {
+        deleteButton.addEventListener('click', async (): Promise<any> => {
             await deleteTodo(todo)
                 .then(() => {
                     getAllTodos()
