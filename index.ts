@@ -37,7 +37,10 @@ async function addTodo(todo: TodoItem['title']): Promise<any> {
     console.log(todoContent)
 }
 
-async function updateTodo(todo: TodoItem, completed: Boolean): Promise<any> {
+async function updateTodo(
+    todo: TodoItem,
+    completed: TodoItem['completed']
+): Promise<any> {
     const postResponse = await fetch(PATCH_URL + todo.id, {
         method: 'PUT',
         headers: {
